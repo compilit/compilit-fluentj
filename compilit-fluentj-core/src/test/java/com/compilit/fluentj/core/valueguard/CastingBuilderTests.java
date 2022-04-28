@@ -1,12 +1,10 @@
 package com.compilit.fluentj.core.valueguard;
 
-import com.compilit.fluentj.api.valueguard.CastExecutor;
-import com.compilit.fluentj.api.valueguard.CastingTarget;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static com.compilit.fluentj.api.operations.DefaultReturningOperations.otherwiseReturn;
-import static com.compilit.fluentj.api.valueguard.CastingTargetBuilder.to;
+import static com.compilit.fluentj.api.operations.CastingOperations.to;
 import static com.compilit.fluentj.api.valueguard.ValueGuards.cast;
 
 class CastingBuilderTests extends AbstractValueTests {
