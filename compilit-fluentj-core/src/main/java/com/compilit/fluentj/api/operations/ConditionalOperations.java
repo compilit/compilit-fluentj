@@ -4,12 +4,12 @@ import java.util.function.Consumer;
 
 public class ConditionalOperations {
 
-  public static Runnable then(Runnable runnable) {
-    return runnable;
+  public static ContinuingRunnable then(ConnectingRunnable runnable) {
+    return runnable::run;
   }
 
-  public static <T> Consumer<T> then(Consumer<T> consumer) {
-    return consumer;
+  public static <T> ContinuingConsumer<T> then(ConnectingConsumer<T> consumer) {
+    return consumer::accept;
   }
 
 }

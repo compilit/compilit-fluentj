@@ -1,112 +1,130 @@
 package com.compilit.fluentj.api.loops;
 
-import com.compilit.fluentj.api.predicates.LongPredicates;
+import com.compilit.fluentj.api.operations.ConnectingConsumer;
+import com.compilit.fluentj.api.operations.ConnectingUnaryOperator;
 import com.compilit.fluentj.api.predicates.DoublePredicates;
 import com.compilit.fluentj.api.predicates.FloatPredicates;
 import com.compilit.fluentj.api.predicates.IntegerPredicates;
+import com.compilit.fluentj.api.predicates.LongPredicates;
 
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
 public final class LoopOperations {
 
   private LoopOperations() {
   }
 
-  //  public static <T> Operation<T> keep(UnaryOperator<T> unaryOperator) {
-//    return new UnaryOperatorWhileLoopOperation<>(unaryOperator);
-//  }
-  public static <T> Loop<T> asLongAsIt(final Predicate<T> predicate, UnaryOperator<T> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, predicate);
+  @SafeVarargs
+  public static <T> Loop<T> asLongAsIt(final Predicate<T> predicate, ConnectingUnaryOperator<T> function, ConnectingConsumer<T>... consumers) {
+    return new WhileLoop<>(function, predicate, List.of(consumers));
   }
 
-  public static Loop<Integer> untilReachingOrGoingAbove(final int exclusiveBoundary, UnaryOperator<Integer> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, IntegerPredicates.isMoreThen(exclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Integer> untilReachingOrGoingAbove(final int exclusiveBoundary, ConnectingUnaryOperator<Integer> function, ConnectingConsumer<Integer>... consumers) {
+    return new DoWhileLoop<>(function, IntegerPredicates.isMoreThen(exclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Long> untilReachingOrGoingAbove(final long exclusiveBoundary, UnaryOperator<Long> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, LongPredicates.isMoreThen(exclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Long> untilReachingOrGoingAbove(final long exclusiveBoundary, ConnectingUnaryOperator<Long> function, ConnectingConsumer<Long>... consumers) {
+    return new DoWhileLoop<>(function, LongPredicates.isMoreThen(exclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Float> untilReachingOrGoingAbove(final float exclusiveBoundary, UnaryOperator<Float> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, FloatPredicates.isMoreThen(exclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Float> untilReachingOrGoingAbove(final float exclusiveBoundary, ConnectingUnaryOperator<Float> function, ConnectingConsumer<Float>... consumers) {
+    return new DoWhileLoop<>(function, FloatPredicates.isMoreThen(exclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Double> untilReachingOrGoingAbove(final double exclusiveBoundary, UnaryOperator<Double> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, DoublePredicates.isMoreThen(exclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Double> untilReachingOrGoingAbove(final double exclusiveBoundary, ConnectingUnaryOperator<Double> function, ConnectingConsumer<Double>... consumers) {
+    return new DoWhileLoop<>(function, DoublePredicates.isMoreThen(exclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Integer> untilReachingOrFallingBelow(final int exclusiveBoundary, UnaryOperator<Integer> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, IntegerPredicates.isLessThenOrEqualTo(exclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Integer> untilReachingOrFallingBelow(final int exclusiveBoundary, ConnectingUnaryOperator<Integer> function, ConnectingConsumer<Integer>... consumers) {
+    return new DoWhileLoop<>(function, IntegerPredicates.isLessThenOrEqualTo(exclusiveBoundary), List.of(consumers));
   }
 
-  public static Loop<Long> untilReachingOrFallingBelow(final long exclusiveBoundary, UnaryOperator<Long> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, LongPredicates.isLessThenOrEqualTo(exclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Long> untilReachingOrFallingBelow(final long exclusiveBoundary, ConnectingUnaryOperator<Long> function, ConnectingConsumer<Long>... consumers) {
+    return new DoWhileLoop<>(function, LongPredicates.isLessThenOrEqualTo(exclusiveBoundary), List.of(consumers));
   }
 
-  public static Loop<Float> untilReachingOrFallingBelow(final float exclusiveBoundary, UnaryOperator<Float> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, FloatPredicates.isLessThenOrEqualTo(exclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Float> untilReachingOrFallingBelow(final float exclusiveBoundary, ConnectingUnaryOperator<Float> function, ConnectingConsumer<Float>... consumers) {
+    return new DoWhileLoop<>(function, FloatPredicates.isLessThenOrEqualTo(exclusiveBoundary), List.of(consumers));
   }
 
-  public static Loop<Double> untilReachingOrFallingBelow(final double exclusiveBoundary, UnaryOperator<Double> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, DoublePredicates.isLessThenOrEqualTo(exclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Double> untilReachingOrFallingBelow(final double exclusiveBoundary, ConnectingUnaryOperator<Double> function, ConnectingConsumer<Double>... consumers) {
+    return new DoWhileLoop<>(function, DoublePredicates.isLessThenOrEqualTo(exclusiveBoundary), List.of(consumers));
   }
 
-  public static Loop<Integer> untilGoingAbove(final int inclusiveBoundary, UnaryOperator<Integer> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, IntegerPredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Integer> untilGoingAbove(final int inclusiveBoundary, ConnectingUnaryOperator<Integer> function, ConnectingConsumer<Integer>... consumers) {
+    return new DoWhileLoop<>(function, IntegerPredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Long> untilGoingAbove(final long inclusiveBoundary, UnaryOperator<Long> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, LongPredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Long> untilGoingAbove(final long inclusiveBoundary, ConnectingUnaryOperator<Long> function, ConnectingConsumer<Long>... consumers) {
+    return new DoWhileLoop<>(function, LongPredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Float> untilGoingAbove(final float inclusiveBoundary, UnaryOperator<Float> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, FloatPredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Float> untilGoingAbove(final float inclusiveBoundary, ConnectingUnaryOperator<Float> function, ConnectingConsumer<Float>... consumers) {
+    return new DoWhileLoop<>(function, FloatPredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Double> untilGoingAbove(final double inclusiveBoundary, UnaryOperator<Double> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, DoublePredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate());
+  @SafeVarargs
+  public static Loop<Double> untilGoingAbove(final double inclusiveBoundary, ConnectingUnaryOperator<Double> function, ConnectingConsumer<Double>... consumers) {
+    return new DoWhileLoop<>(function, DoublePredicates.isMoreThenOrEqualTo(inclusiveBoundary).negate(), List.of(consumers));
   }
 
-  public static Loop<Integer> untilFallingBelow(final int inclusiveBoundary, UnaryOperator<Integer> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, IntegerPredicates.isLessThen(inclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Integer> untilFallingBelow(final int inclusiveBoundary, ConnectingUnaryOperator<Integer> function, ConnectingConsumer<Integer>... consumers) {
+    return new DoWhileLoop<>(function, IntegerPredicates.isLessThen(inclusiveBoundary), List.of(consumers));
   }
 
-  public static Loop<Long> untilFallingBelow(final long inclusiveBoundary, UnaryOperator<Long> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, LongPredicates.isLessThen(inclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Long> untilFallingBelow(final long inclusiveBoundary, ConnectingUnaryOperator<Long> function, ConnectingConsumer<Long>... consumers) {
+    return new DoWhileLoop<>(function, LongPredicates.isLessThen(inclusiveBoundary), List.of(consumers));
   }
 
-  public static Loop<Float> untilFallingBelow(final float inclusiveBoundary, UnaryOperator<Float> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, FloatPredicates.isLessThen(inclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Float> untilFallingBelow(final float inclusiveBoundary, ConnectingUnaryOperator<Float> function, ConnectingConsumer<Float>... consumers) {
+    return new DoWhileLoop<>(function, FloatPredicates.isLessThen(inclusiveBoundary), List.of(consumers));
   }
 
-  public static Loop<Double> untilFallingBelow(final double inclusiveBoundary, UnaryOperator<Double> unaryOperator) {
-    return new UnaryOperatorWhileLoop<>(unaryOperator, DoublePredicates.isLessThen(inclusiveBoundary));
+  @SafeVarargs
+  public static Loop<Double> untilFallingBelow(final double inclusiveBoundary, ConnectingUnaryOperator<Double> function, ConnectingConsumer<Double>... consumers) {
+    return new DoWhileLoop<>(function, DoublePredicates.isLessThen(inclusiveBoundary), List.of(consumers));
   }
 
-
-  public static <T> Loop<T> keep(UnaryOperator<T> unaryOperator, Predicate<T> predicate) {
-    return new UnaryOperatorDoWhileLoop<>(unaryOperator, predicate);
+  @SafeVarargs
+  public static <T> Loop<T> keep(ConnectingUnaryOperator<T> function, Predicate<T> predicate, ConnectingConsumer<T>... consumers) {
+    return new WhileLoop<>(function, predicate, List.of(consumers));
   }
 
-  public static <T> Loop<T> keep(BiFunction<T, T, T> biFunction) {
-    return new BiFunctionWhileLoop<>(biFunction);
+  @SafeVarargs
+  public static <T> Loop<T> keep(BiFunction<T, T, T> biFunction, ConnectingConsumer<T>... consumers) {
+    return new BiFunctionWhileLoop<>(biFunction, List.of(consumers));
   }
 
-  public static <T> Loop<T> keep(BiFunction<T, T, T> biFunction, Predicate<T> predicate) {
-    return new BiFunctionWhileLoop<>(biFunction, predicate.negate());
+  @SafeVarargs
+  public static <T> Loop<T> keep(BiFunction<T, T, T> biFunction, Predicate<T> predicate, ConnectingConsumer<T>... consumers) {
+    return new BiFunctionWhileLoop<>(biFunction, predicate.negate(), List.of(consumers));
   }
 
-  public static <T> UnaryOperator<T> keep(UnaryOperator<T> unaryOperator) {
-    return unaryOperator;
+  public static <T> ConnectingUnaryOperator<T> keep(ConnectingUnaryOperator<T> function) {
+    return function;
   }
 
-//  public static <T> Operation<T> then(UnaryOperator<T> unaryOperator) {
-//    return new UnaryOperatorWhileLoopOperation<>(unaryOperator);
+//  public static <T> Operation<T> then(ConnectingUnaryOperator<T> function) {
+//    return new WhileLoopOperation<>(function);
 //  }
 //
-//  public static <T> Operation<T> then(UnaryOperator<T> unaryOperator, Predicate<T> predicate) {
-//    return new UnaryOperatorWhileLoopOperation<>(unaryOperator, predicate);
+//  public static <T> Operation<T> then(ConnectingUnaryOperator<T> function, Predicate<T> predicate) {
+//    return new WhileLoopOperation<>(function, predicate);
 //  }
 }

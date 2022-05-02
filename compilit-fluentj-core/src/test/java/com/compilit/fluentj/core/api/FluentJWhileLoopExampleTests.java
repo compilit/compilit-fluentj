@@ -7,10 +7,10 @@ import testutil.AbstractTestWithContext;
 import static com.compilit.fluentj.api.loops.LoopOperations.asLongAsIt;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
+import static com.compilit.fluentj.api.operations.StringOperations.appending;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.isNot;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
-import static com.compilit.fluentj.api.operations.StringOperations.appending;
 
 class FluentJWhileLoopExampleTests extends AbstractTestWithContext {
 

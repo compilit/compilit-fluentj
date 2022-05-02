@@ -1,6 +1,6 @@
-package com.compilit.fluentj.core.valueguard;
+package testutil;
 
-abstract class AbstractValueTests {
+public abstract class AbstractValueTests {
   protected static final String nullValue = null;
   protected static final String stringValue = "value";
   protected static final String intStringValue = "1";

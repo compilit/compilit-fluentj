@@ -1,6 +1,6 @@
 package com.compilit.fluentj.api.expressions;
 
-import com.compilit.fluentj.exceptions.IncompleteStatementException;
+import com.compilit.fluentj.exceptions.IncompleteExpressionException;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -27,7 +27,7 @@ class FunctionExpression<T, R> implements Expression<T, R> {
   @Override
   public R apply(T input) {
     if (!isComplete)
-      throw new IncompleteStatementException();
+      throw new IncompleteExpressionException();
     if (predicate.test(input))
       return function.apply(input);
     return next.apply(input);

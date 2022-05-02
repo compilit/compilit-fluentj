@@ -1,15 +1,14 @@
 package com.compilit.fluentj.core.api;
 
-import testutil.AbstractTestWithContext;
-import com.compilit.fluentj.exceptions.IncompleteStatementException;
+import com.compilit.fluentj.exceptions.IncompleteExpressionException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import testutil.AbstractTestWithContext;
 
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
-import static com.compilit.fluentj.api.operations.ConditionalOperations.then;
-
 import static com.compilit.fluentj.api.expressions.Expressions.is;
 import static com.compilit.fluentj.api.expressions.Expressions.isAnyThingElseThenReturn;
+import static com.compilit.fluentj.api.operations.ConditionalOperations.then;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
 
 class FluentJSwitchExpressionTests extends AbstractTestWithContext {
@@ -47,7 +46,7 @@ class FluentJSwitchExpressionTests extends AbstractTestWithContext {
   @Test
   void returningSwitch_noDefault_shouldThrowException() {
     Assertions.assertThatThrownBy(() -> inCaseThat(1, is(1, thenReturn("text"))))
-            .isInstanceOf(IncompleteStatementException.class);
+            .isInstanceOf(IncompleteExpressionException.class);
   }
 
   @Test

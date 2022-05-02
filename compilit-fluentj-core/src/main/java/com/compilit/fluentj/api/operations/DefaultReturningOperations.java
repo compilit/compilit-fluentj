@@ -13,6 +13,10 @@ public final class DefaultReturningOperations {
     return () -> defaultValue;
   }
 
+//  public static <T> BiFunction<T, Predicate<T>, T> otherwiseReturn(T defaultValue) {
+//    return (value, predicate) -> predicate.test(value) ? value : defaultValue;
+//  }
+
   public static Supplier<Boolean> otherwiseItIsTrue() {
     return () -> true;
   }
@@ -21,15 +25,15 @@ public final class DefaultReturningOperations {
     return () -> false;
   }
 
-  public static Runnable otherwise(Runnable defaultRunnable) {
+  public static ConnectingRunnable otherwise(ConnectingRunnable defaultRunnable) {
     return defaultRunnable;
   }
 
-  public static <T> Consumer<T> otherwise(Consumer<T> defaultConsumer) {
+  public static <T> ConnectingConsumer<T> otherwise(ConnectingConsumer<T> defaultConsumer) {
     return defaultConsumer;
   }
 
-  public static <T, R> Function<T, R> otherwise(Function<T, R> defaultFunction) {
+  public static <T, R> ConnectingFunction<T, R> otherwise(ConnectingFunction<T, R> defaultFunction) {
     return defaultFunction;
   }
 }

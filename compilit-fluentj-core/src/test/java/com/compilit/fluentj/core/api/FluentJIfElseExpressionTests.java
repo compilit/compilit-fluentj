@@ -1,15 +1,15 @@
 package com.compilit.fluentj.core.api;
 
-import testutil.AbstractTestWithContext;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import testutil.AbstractTestWithContext;
 
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
 import static com.compilit.fluentj.api.operations.ConditionalOperations.then;
 import static com.compilit.fluentj.api.operations.DefaultReturningOperations.otherwise;
 import static com.compilit.fluentj.api.operations.DefaultReturningOperations.otherwiseReturn;
-import static com.compilit.fluentj.api.predicates.Predicates.is;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
+import static com.compilit.fluentj.api.predicates.Predicates.is;
 import static org.assertj.core.api.Fail.fail;
 
 class FluentJIfElseExpressionTests extends AbstractTestWithContext {

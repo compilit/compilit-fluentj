@@ -13,6 +13,7 @@ abstract class AbstractLoop<T> implements Loop<T> {
   protected Predicate<T> interrupter = x -> false;
   protected Predicate<T> mainPredicate;
   protected UnaryOperator<T> mainUnaryOperator;
+
   protected T input;
 
   protected AbstractLoop() {

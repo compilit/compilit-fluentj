@@ -1,9 +1,13 @@
 package com.compilit.fluentj.api.predicates;
 
+import com.compilit.fluentj.api.operations.ConnectingConsumer;
+import com.compilit.fluentj.api.operations.ConnectingFunction;
+import com.compilit.fluentj.api.operations.ConnectingRunnable;
+
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.BiPredicate;
-import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -62,8 +66,17 @@ public final class Predicates {
     return it -> Objects.equals(it, possibleEqual);
   }
 
+  public static <T> Predicate<T> itIsNull() {
+    return Objects::isNull;
+  }
+
+
   public static <T> Predicate<T> itIsNot(final T possibleEqual) {
     return itIs(possibleEqual).negate();
+  }
+
+  public static <T> Predicate<T> itIsNotNull() {
+    return Objects::nonNull;
   }
 
   public static <T> Predicate<T> isNull() {
@@ -87,17 +100,17 @@ public final class Predicates {
   }
 
   public static <T> Predicate<T> untilIt(final Predicate<T> predicate) {
-    return predicate;
+    return predicate.negate();
   }
 
-  public static <T> Consumer<T> andInCaseThat(final Predicate<T> predicate, Runnable runnable) {
+  public static <T> ConnectingConsumer<T> andInCaseThat(final Predicate<T> predicate, ConnectingRunnable runnable) {
     return it -> {
       if (predicate.test(it))
         runnable.run();
     };
   }
 
-  public static <T> Consumer<T> andInCaseThat(final Predicate<T> predicate, Consumer<T> consumer) {
+  public static <T> ConnectingConsumer<T> andInCaseThat(final Predicate<T> predicate, ConnectingConsumer<T> consumer) {
     return it -> {
       if (predicate.test(it))
         consumer.accept(it);
@@ -110,10 +123,6 @@ public final class Predicates {
         return supplier.get();
       return defaultSupplier.get();
     };
-  }
-
-  public static <T> Predicate<T> inCaseThatIt(final Predicate<T> predicate) {
-    return predicate;
   }
 
   @SafeVarargs

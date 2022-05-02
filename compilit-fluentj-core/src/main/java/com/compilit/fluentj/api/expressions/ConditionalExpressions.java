@@ -1,6 +1,7 @@
 package com.compilit.fluentj.api.expressions;
 
-import com.compilit.fluentj.exceptions.IncompleteStatementException;
+import com.compilit.fluentj.api.operations.ConnectingConsumer;
+import com.compilit.fluentj.exceptions.IncompleteExpressionException;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -9,17 +10,11 @@ import java.util.function.Supplier;
 
 public final class ConditionalExpressions {
 
-  private ConditionalExpressions() {}
+  private ConditionalExpressions() {
+  }
 
   /**
-   * A non-returning if-expression. Comparable to:
-   * <pre>
-   * {@code
-   * if (predicate.test(input)) {
-   *   runnable.run();
-   * }
-   * </pre>
-   *
+   * A non-returning if-expression.
    * @param input     the value that goes into the if-expression.
    * @param predicate the predicate to test against the input value.
    * @param runnable  the operation that needs to be run if the predicate returns true.
@@ -31,16 +26,7 @@ public final class ConditionalExpressions {
   }
 
   /**
-   * A non-returning if-expression with a default. Comparable to:
-   * <pre>
-   * {@code
-   * if (predicate.test(input)) {
-   *   runnable.run();
-   * } else {
-   *   defaultRunnable.run();
-   * }
-   * </pre>
-   *
+   * A non-returning if-expression with a default.
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value.
    * @param runnable        the operation that needs to be run if the predicate returns true.
@@ -57,14 +43,7 @@ public final class ConditionalExpressions {
   }
 
   /**
-   * A non-returning if-expression. Comparable to:
-   * <pre>
-   * {@code
-   * if (predicate.test(input)) {
-   *   consumer.accept(input);
-   * }
-   * </pre>
-   *
+   * A non-returning if-expression.
    * @param input     the value that goes into the if-expression.
    * @param predicate the predicate to test against the input value. Takes the input as an argument.
    * @param consumer  the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -76,16 +55,7 @@ public final class ConditionalExpressions {
   }
 
   /**
-   * A non-returning if-expression with a default. Comparable to:
-   * <pre>
-   * {@code
-   * if (predicate.test(input)) {
-   *   consumer.accept(input);
-   * } else {
-   *   defaultConsumer.accept(input);
-   * }
-   * </pre>
-   *
+   * A non-returning if-expression with a default.
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value.
    * @param consumer        the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -100,16 +70,7 @@ public final class ConditionalExpressions {
   }
 
   /**
-   * A returning if-expression. Since you return something, an alternative (default) needs to be provided. Comparable to:
-   * <pre>
-   * {@code
-   * if (predicate.test(input)) {
-   *   return supplier.get();
-   * } else {
-   *   return defaultSupplier.get();
-   * }
-   * </pre>
-   *
+   * A returning if-expression. Since you return something, an alternative (default) needs to be provided.
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value. Takes the input as an argument.
    * @param supplier        the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -125,16 +86,7 @@ public final class ConditionalExpressions {
   }
 
   /**
-   * A returning if-expression. The function arguments are like mappers for you input. Since you return something, an alternative (default) needs to be provided. Comparable to:
-   * <pre>
-   * {@code
-   * if (predicate.test(input)) {
-   *   return function.apply(input);
-   * } else {
-   *   return defaultFunction.apply(input);
-   * }
-   * </pre>
-   *
+   * A returning if-expression. The function arguments are like mappers for you input. Since you return something, an alternative (default) needs to be provided.
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value. Takes the input as an argument.
    * @param function        the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -155,14 +107,7 @@ public final class ConditionalExpressions {
    * It should be noted that a FluentJ switch expression takes the English language quite literally.
    * This function is really flexible and as a result, it will not tell you if you've forgotten to state a default returning action at compile time.
    * It will, however, throw an "IncompleteStatementException" at runtime if the statement is incomplete to still catch bugs like this as early as possible.
-   * To be clear: an incomplete statement would be something like this, which would cause a compile-time error:
-   * <pre>
-   * {@code
-   * if (predicate.test(input)) {
-   *   return function.apply(input);
-   * }
-   * </pre>
-   *
+   * To be clear: an incomplete statement would be something like this, which would cause a compile-time error
    * @param input                the value that goes into the switch-expression.
    * @param expression           the initial expression, take a look at the "Expressions" to get an idea of the possibilities.
    * @param expressionExtensions the extra expression until it is complete, take a look at the "Expressions.class" to get an idea of the possibilities.
@@ -178,8 +123,48 @@ public final class ConditionalExpressions {
       }
     }
     if (!expression.isComplete())
-      throw new IncompleteStatementException();
+      throw new IncompleteExpressionException();
     return expression.apply(input);
   }
+
+  /**
+   * A dynamic switch-expression. It takes in a set of predicate/operation combinations in the form of an "AppendingStatement".
+   * It should be noted that a FluentJ switch expression takes the English language quite literally.
+   * This function is really flexible and as a result, it will not tell you if you've forgotten to state a default returning action at compile time.
+   * It will, however, throw an "IncompleteStatementException" at runtime if the statement is incomplete to still catch bugs like this as early as possible.
+   * To be clear: an incomplete statement would be something like this, which would cause a compile-time error
+   * @param expression           the initial expression, take a look at the "Expressions" to get an idea of the possibilities.
+   * @param expressionExtensions the extra expression until it is complete, take a look at the "Expressions.class" to get an idea of the possibilities.
+   * @param <T>                  the type of the input of the switch-expression.
+   * @param <R>                  the return type of the switch expression.
+   * @return the expression.
+   */
+  @SafeVarargs
+  public static <T, R> Expression<T, R> inCaseThatIt(final Expression<T, R> expression, final Expression<T, R>... expressionExtensions) {
+    if (expressionExtensions != null && expressionExtensions.length > 0) {
+      for (var statementExtension : expressionExtensions) {
+        expression.append(statementExtension);
+      }
+    }
+    if (!expression.isComplete())
+      throw new IncompleteExpressionException();
+    return expression;
+  }
+
+
+//
+//  public static <T> ConnectingConsumer<T> inCaseThat(final Predicate<T> predicate, Consumer<T> consumer) {
+//    return it -> {
+//      if (predicate.test(it))
+//        consumer.accept(it);
+//    };
+//  }
+//
+//  public static <T> ConnectingConsumer<T> inCaseThat(final Predicate<T> predicate, ConnectingConsumer<T> consumer) {
+//    return it -> {
+//      if (predicate.test(it))
+//        consumer.accept(it);
+//    };
+//  }
 
 }

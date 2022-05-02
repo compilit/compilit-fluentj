@@ -4,9 +4,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import testutil.AbstractTestWithContext;
 
-import static com.compilit.fluentj.api.operations.StringOperations.appending;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
+import static com.compilit.fluentj.api.operations.StringOperations.appending;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.asLongAsIt;
 import static com.compilit.fluentj.api.predicates.Predicates.isNot;

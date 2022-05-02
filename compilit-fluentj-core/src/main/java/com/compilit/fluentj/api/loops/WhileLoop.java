@@ -1,15 +1,17 @@
 package com.compilit.fluentj.api.loops;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-class UnaryOperatorWhileLoop<T> extends AbstractLoop<T> implements Loop<T> {
+class WhileLoop<T> extends AbstractLoop<T> implements Loop<T> {
 
-  public UnaryOperatorWhileLoop(UnaryOperator<T> unaryOperator, Predicate<T> predicate) {
+  public WhileLoop(UnaryOperator<T> mainUnaryOperator, Predicate<T> predicate, List<Consumer<T>> consumerList) {
     super();
     this.mainPredicate = predicate;
-    this.mainUnaryOperator = unaryOperator;
+    this.mainUnaryOperator = mainUnaryOperator;
+    this.consumers.addAll(consumerList);
   }
 
   @Override
@@ -39,12 +41,12 @@ class UnaryOperatorWhileLoop<T> extends AbstractLoop<T> implements Loop<T> {
 
   private T resolveAllWithIntermittentOperation() {
     while (mainPredicate.test(input)) {
+      consumers.forEach(x -> x.accept(input));
+      input = mainUnaryOperator.apply(input);
       if (interrupter.test(input)) {
         isInterrupted = true;
         break;
       }
-      consumers.forEach(x -> x.accept(input));
-      input = mainUnaryOperator.apply(input);
     }
     return input;
   }

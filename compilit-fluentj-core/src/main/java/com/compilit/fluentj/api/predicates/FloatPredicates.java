@@ -1,21 +1,25 @@
 package com.compilit.fluentj.api.predicates;
 
-import com.compilit.fluentj.api.loops.LoopOperations;
 import com.compilit.fluentj.api.arithmetic.Addition;
+import com.compilit.fluentj.api.loops.LoopOperations;
 
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
+import static com.compilit.fluentj.api.arithmetic.Modulo.modulatingItBy;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.tryStartingWith;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsEither;
 import static com.compilit.fluentj.api.predicates.Predicates.or;
 import static com.compilit.fluentj.api.predicates.Predicates.unless;
-import static com.compilit.fluentj.api.arithmetic.Modulo.modulatingItBy;
 
 public final class FloatPredicates {
-  private FloatPredicates() {}
+  private FloatPredicates() {
+  }
 
+  public static Predicate<Float> isEqualTo(final float input) {
+    return it -> it == input;
+  }
   public static Predicate<Float> isLessThen(final float input) {
     return it -> it < input;
   }
@@ -74,7 +78,6 @@ public final class FloatPredicates {
             LoopOperations.untilReachingOrGoingAbove(thePossiblePrime / 2f, keep(Addition.adding(1f))),
             unless(thePossiblePrime, isDivisibleByTheCurrentNumber()));
   }
-
 
 
 }

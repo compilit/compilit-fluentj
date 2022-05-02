@@ -1,5 +1,6 @@
 package com.compilit.fluentj.api.loops;
 
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -8,15 +9,17 @@ class BiFunctionWhileLoop<T> extends AbstractLoop<T> implements Loop<T> {
 
   private final BiFunction<T, T, T> biFunction;
 
-  protected BiFunctionWhileLoop(BiFunction<T, T, T> biFunction) {
+  protected BiFunctionWhileLoop(BiFunction<T, T, T> biFunction, List<Consumer<T>> consumerList) {
     super();
     this.biFunction = biFunction;
+    this.consumers.addAll(consumerList);
   }
 
-  protected BiFunctionWhileLoop(BiFunction<T, T, T> biFunction, Predicate<T> predicate) {
+  protected BiFunctionWhileLoop(BiFunction<T, T, T> biFunction, Predicate<T> predicate, List<Consumer<T>> consumerList) {
     super();
     this.mainPredicate = predicate;
     this.biFunction = biFunction;
+    this.consumers.addAll(consumerList);
   }
 
   protected BiFunctionWhileLoop(T input, BiFunction<T, T, T> biFunction, Predicate<T> predicate) {

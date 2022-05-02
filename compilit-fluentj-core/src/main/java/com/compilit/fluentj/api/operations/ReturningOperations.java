@@ -6,19 +6,21 @@ import com.compilit.results.Result;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static com.compilit.fluentj.api.operations.ExceptionOperations.inCaseOfAnExceptionReturnDefault;
+
 public final class ReturningOperations {
   private ReturningOperations() {
   }
 
-  public static <R> Supplier<R> thenReturn(R value) {
+  public static <T> Supplier<T> thenReturn(T value) {
     return () -> value;
   }
 
-  public static <T> Function<Loop<T>, Result<T>> thenReturnTheResult() {
+  public static <T> ContinuingFunction<Loop<T>, Result<T>> thenReturnTheResult() {
     return it -> Result.resultOf(it::resolveAll);
   }
 
-  public static <T> Function<T, Result<T>> andReturnResult() {
+  public static <T> ContinuingFunction<T, Result<T>> andReturnResult() {
     return it -> Result.resultOf(() -> it);
   }
 
@@ -29,4 +31,14 @@ public final class ReturningOperations {
   public static Supplier<Boolean> thenItIsFalse() {
     return () -> false;
   }
+
+  public static <T> ContinuingFunction<Supplier<T>, T> inCaseOfAnExceptionReturnNull() {
+    return inCaseOfAnExceptionReturn(null);
+  }
+
+  public static <T> ContinuingFunction<Supplier<T>, T> inCaseOfAnExceptionReturn(T defaultValue) {
+    return it -> inCaseOfAnExceptionReturnDefault(it, defaultValue);
+  }
+
+
 }

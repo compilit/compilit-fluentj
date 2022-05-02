@@ -1,15 +1,17 @@
 package com.compilit.fluentj.api.loops;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-public class UnaryOperatorDoWhileLoop<T> extends AbstractLoop<T> implements Loop<T> {
+class DoWhileLoop<T> extends AbstractLoop<T> implements Loop<T> {
 
-  public UnaryOperatorDoWhileLoop(UnaryOperator<T> unaryOperator, Predicate<T> predicate) {
+  public DoWhileLoop(UnaryOperator<T> mainUnaryOperator, Predicate<T> predicate, List<Consumer<T>> consumerList) {
     super();
     this.mainPredicate = predicate;
-    this.mainUnaryOperator = unaryOperator;
+    this.mainUnaryOperator = mainUnaryOperator;
+    this.consumers.addAll(consumerList);
   }
 
   @Override

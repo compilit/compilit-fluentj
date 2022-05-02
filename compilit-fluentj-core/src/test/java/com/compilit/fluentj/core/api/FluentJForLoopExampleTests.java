@@ -13,13 +13,12 @@ import static com.compilit.fluentj.api.arithmetic.Addition.adding;
 import static com.compilit.fluentj.api.arithmetic.Multiplication.multiplyingItBy;
 import static com.compilit.fluentj.api.arithmetic.Subtraction.subtractingItWith;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilReachingOrFallingBelow;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
+import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilFallingBelow;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilGoingAbove;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilReachingOrFallingBelow;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilReachingOrGoingAbove;
-
-import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 

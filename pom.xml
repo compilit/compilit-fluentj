@@ -5,7 +5,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>compilit-fluentj-springjpa</module>
         <module>compilit-fluentj-core</module>
     </modules>
 
@@ -25,7 +24,6 @@
         <compilit-results.version>2.0.0</compilit-results.version>
         <compilit-validation.version>2.3.0</compilit-validation.version>
         <compilit-domain-primitives.version>1.0.0</compilit-domain-primitives.version>
-        <spring.boot.version>2.6.1</spring.boot.version>
         <slf4j.version>2.0.0-alpha7</slf4j.version>
         <compilit-spring-mediator.version>1.0.0</compilit-spring-mediator.version>
     </properties>
@@ -44,11 +42,6 @@
         </dependency>
         <dependency>
             <groupId>com.compilit</groupId>
-            <artifactId>compilit-spring-mediator</artifactId>
-            <version>${compilit-spring-mediator.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.compilit</groupId>
             <artifactId>compilit-results</artifactId>
             <version>${compilit-results.version}</version>
         </dependency>
@@ -56,16 +49,6 @@
             <groupId>com.compilit</groupId>
             <artifactId>compilit-validation</artifactId>
             <version>${compilit-validation.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.compilit</groupId>
-            <artifactId>compilit-domain-primitives</artifactId>
-            <version>${compilit-domain-primitives.version}</version>
-        </dependency>
-        <dependency>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <version>${spring.boot.version}</version>
         </dependency>
     </dependencies>
 </project>

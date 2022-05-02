@@ -1,7 +1,7 @@
 package com.compilit.fluentj.api.predicates;
 
-import com.compilit.fluentj.api.loops.LoopOperations;
 import com.compilit.fluentj.api.arithmetic.Addition;
+import com.compilit.fluentj.api.loops.LoopOperations;
 
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -13,7 +13,9 @@ import static com.compilit.fluentj.api.predicates.Predicates.or;
 import static com.compilit.fluentj.api.predicates.Predicates.unless;
 
 public final class LongPredicates {
-
+  public static Predicate<Long> isEqualTo(final long input) {
+    return it -> it == input;
+  }
   public static Predicate<Long> isMoreThen(final long input) {
     return it -> it > input;
   }
@@ -21,6 +23,7 @@ public final class LongPredicates {
   public static Predicate<Long> isLessThen(final long input) {
     return it -> it < input;
   }
+
   public static Predicate<Long> isMoreThenOrEqualTo(final long input) {
     return it -> it >= input;
   }

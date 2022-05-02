@@ -1,39 +1,40 @@
 package com.compilit.fluentj.api.arithmetic;
 
-import java.util.function.UnaryOperator;
+import com.compilit.fluentj.api.operations.ConnectingUnaryOperator;
 
 public final class Division {
-  private Division() {}
+  private Division() {
+  }
 
-  public static UnaryOperator<Integer> divideItBy(final int divisor) {
+  public static ConnectingUnaryOperator<Integer> divideItBy(final int divisor) {
     return x -> x / divisor;
   }
 
-  public static UnaryOperator<Long> divideItBy(final long divisor) {
+  public static ConnectingUnaryOperator<Long> divideItBy(final long divisor) {
     return x -> x / divisor;
   }
 
-  public static UnaryOperator<Float> divideItBy(final float divisor) {
+  public static ConnectingUnaryOperator<Float> divideItBy(final float divisor) {
     return x -> x / divisor;
   }
 
-  public static UnaryOperator<Double> divideItBy(final double divisor) {
+  public static ConnectingUnaryOperator<Double> divideItBy(final double divisor) {
     return x -> x / divisor;
   }
 
-  public static UnaryOperator<Integer> dividingItBy(final int divisor) {
+  public static ConnectingUnaryOperator<Integer> dividingItBy(final int divisor) {
     return divideItBy(divisor);
   }
 
-  public static UnaryOperator<Long> dividingItBy(final long divisor) {
+  public static ConnectingUnaryOperator<Long> dividingItBy(final long divisor) {
     return divideItBy(divisor);
   }
 
-  public static UnaryOperator<Float> dividingItBy(final float divisor) {
+  public static ConnectingUnaryOperator<Float> dividingItBy(final float divisor) {
     return divideItBy(divisor);
   }
 
-  public static UnaryOperator<Double> dividingItBy(final double divisor) {
+  public static ConnectingUnaryOperator<Double> dividingItBy(final double divisor) {
     return divideItBy(divisor);
   }
 

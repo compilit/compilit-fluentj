@@ -1,6 +1,8 @@
 package com.compilit.fluentj.api.expressions;
 
+import com.compilit.fluentj.api.operations.ConnectingConsumer;
 import com.compilit.fluentj.api.predicates.Predicates;
+import com.compilit.validation.api.contracts.Rule;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -12,6 +14,10 @@ import static com.compilit.fluentj.api.predicates.Predicates.isAnythingElse;
 public class Expressions {
 
   private Expressions() {
+  }
+
+  public static <T, R> Expression<T, R> isNull(Supplier<R> supplier) {
+    return new SupplierExpression<>(Predicates.isNull(), supplier);
   }
 
   public static <T> Expression<T, Void> isNull(Runnable runnable) {
@@ -26,6 +32,10 @@ public class Expressions {
     return new FunctionExpression<>(Predicates.isNull(), function);
   }
 
+  public static <T, R> Expression<T, R> isNotNull(Supplier<R> supplier) {
+    return new SupplierExpression<>(Predicates.isNotNull(), supplier);
+  }
+
   public static <T, R> Expression<T, Void> isNotNull(Runnable runnable) {
     return new RunnableExpression<>(Predicates.isNotNull(), runnable);
   }
@@ -36,6 +46,27 @@ public class Expressions {
 
   public static <T, R> Expression<T, R> isNotNull(Function<T, R> function) {
     return new FunctionExpression<>(Predicates.isNotNull(), function);
+  }
+
+//  public static <T, R> Expression<T, R> itIs(T value, Supplier<R> returnValue) {
+//    return new SupplierExpression<>(Predicates.is(value), returnValue);
+//  }
+
+  public static <T, R> Expression<T, R> compliesWith(Rule<T> rule, Supplier<R> returnValue) {
+    return new SupplierExpression<>(rule, returnValue);
+  }
+
+  public static <T> Expression<T, Void> compliesWith(Rule<T> rule, Runnable runnable) {
+    return new RunnableExpression<>(rule, runnable);
+  }
+
+  public static <T> Expression<T, Void> compliesWith(Rule<T> rule, Consumer<T> consumer) {
+    return new ConsumerExpression<>(rule, consumer);
+  }
+
+
+  public static <T, R> Expression<T, R> compliesWith(Rule<T> rule, Function<T, R> function) {
+    return new FunctionExpression<>(rule, function);
   }
 
   public static <T, R> Expression<T, R> is(T value, Supplier<R> returnValue) {
