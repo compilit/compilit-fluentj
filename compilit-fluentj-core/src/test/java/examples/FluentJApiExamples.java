@@ -1,9 +1,8 @@
-package com.compilit.fluentj.core.api;
+package examples;
 
 import com.compilit.fluentj.api.operations.ConnectingConsumer;
+import com.compilit.fluentj.api.operations.LoggerOperations;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import testutil.TestEnum;
 import testutil.TestObject;
 
@@ -31,10 +30,10 @@ import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
 import static com.compilit.fluentj.api.operations.StringOperations.appending;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.isEqualTo;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.isLessThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThen;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThenOrEqualTo;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilGoingAbove;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilReachingOrGoingAbove;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.asLongAsIt;
 import static com.compilit.fluentj.api.predicates.Predicates.isAnyOf;
@@ -49,37 +48,37 @@ import static testutil.TestEnum.THREE;
 import static testutil.TestEnum.TWO;
 import static testutil.TestEnum.theCollection;
 
-class FluentJApiExampleTests {
+class FluentJApiExamples {
 
-  private final Logger logger = LoggerFactory.getLogger(getClass());
-
+  //this is just a playground for the author, will be replaced by actual readable examples in the future
   @Test
   void whileLoopTest() {
-//    startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10))), and(printIt()));
-////    startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10)))).and(printIt());
-//    startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10))), and(printIt()));
-    assertThat(startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10))), thenReturnTheResult()).getContents()).isEqualTo(10);
-//    assertThat(startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10)))).thenReturnResultContents().get()).isEqualTo(10);
-//    assertThat(startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10)))).thenReturnValue()).isEqualTo(10);
-//    startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10)))).andInCaseThat(x -> true, printIt());
-    startingWith("a", keep(appending("a"), asLongAsIt(isNot("aaaaaaaaaa"))), andInCaseThat(itIs("aaa"), printIt()));
-//    assertThat(startingWith(0, keep(adding(1), asLongAsIt(isLessThen(10)))).unless(x -> true)).isFalse();
+    startingWith(0,
+            keep(adding(1), asLongAsIt(isLessThen(10))), and(printIt()));
+    assertThat(startingWith(0,
+            keep(adding(1), asLongAsIt(isLessThen(10))),
+            thenReturnTheResult()).getContents()).isEqualTo(10);
+    startingWith("a",
+            keep(appending("a"), asLongAsIt(isNot("aaaaaaaaaa")), andInCaseThat(itIs("aaa"), printIt())));
   }
 
   @Test
   void forLoopsTest() {
     //exclusive boundary
-    assertThat(startingWith(100, keep(multiplyingItBy(2), untilGoingAbove(100000)), thenReturnTheResult()).getContents()).isEqualTo(102400);
+    assertThat(startingWith(100, keep(multiplyingItBy(2), untilIt(isMoreThen(100000))), thenReturnTheResult()).getContents()).isEqualTo(102400);
 
     var testObject = new TestObject(1);
+
+    //exclusive boundary
+    startingWith(0, keep(adding(1), untilIt(isEqualTo(10)), and(testObject::changeValue)));
     //inclusive boundary
-    startingWith(0, keep(adding(1), untilGoingAbove(10)), and(testObject::changeValue));
+    startingWith(0, keep(adding(1), untilIt(isMoreThen(10)), and(testObject::changeValue)));
     assertThat(testObject.getValue()).isEqualTo(10);
     testObject = new TestObject(1);
-    startingWith(0, keep(adding(1), untilReachingOrGoingAbove(10)), and(testObject::changeValue));
+    startingWith(0, keep(adding(1), untilIt(isMoreThen(10)), and(testObject::changeValue)));
     assertThat(testObject.getValue()).isEqualTo(9);
     testObject = new TestObject(1);
-    startingWith(0, keep(adding(1), untilReachingOrGoingAbove(10)), and(testObject::increment));
+    startingWith(0, keep(adding(1), untilIt(isMoreThen(10)), and(testObject::increment)));
     assertThat(testObject.getValue()).isEqualTo(46);
     startingWith(1, keep(multiplyingItBy(2), untilIt(isMoreThenOrEqualTo(100))), then(printIt()));
   }

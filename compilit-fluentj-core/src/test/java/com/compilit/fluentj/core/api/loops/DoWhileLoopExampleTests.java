@@ -1,4 +1,4 @@
-package com.compilit.fluentj.core.api;
+package com.compilit.fluentj.core.api.loops;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static com.compilit.fluentj.api.predicates.Predicates.asLongAsIt;
 import static com.compilit.fluentj.api.predicates.Predicates.isNot;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
 
-class FluentJDoWhileLoopExampleTests extends AbstractTestWithContext {
+class DoWhileLoopExampleTests extends AbstractTestWithContext {
 
   @Test
   void doWhileLoop_loopsWithPredicateMatch_shouldInteract() {

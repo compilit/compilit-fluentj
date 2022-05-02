@@ -1,6 +1,10 @@
 package com.compilit.fluentj.api.expressions;
 
 import com.compilit.fluentj.api.operations.ConnectingConsumer;
+import com.compilit.fluentj.api.operations.ConnectingRunnable;
+import com.compilit.fluentj.api.operations.ConnectingConsumer;
+import com.compilit.fluentj.api.operations.ConnectingFunction;
+import com.compilit.fluentj.api.operations.ConnectingRunnable;
 import com.compilit.fluentj.api.predicates.Predicates;
 import com.compilit.validation.api.contracts.Rule;
 
@@ -20,15 +24,15 @@ public class Expressions {
     return new SupplierExpression<>(Predicates.isNull(), supplier);
   }
 
-  public static <T> Expression<T, Void> isNull(Runnable runnable) {
+  public static <T> Expression<T, Void> isNull(ConnectingRunnable runnable) {
     return new RunnableExpression<>(Predicates.isNull(), runnable);
   }
 
-  public static <T, R> Expression<T, Void> isNull(Consumer<T> consumer) {
+  public static <T, R> Expression<T, Void> isNull(ConnectingConsumer<T> consumer) {
     return new ConsumerExpression<>(Predicates.isNull(), consumer);
   }
 
-  public static <T, R> Expression<T, R> isNull(Function<T, R> function) {
+  public static <T, R> Expression<T, R> isNull(ConnectingFunction<T, R> function) {
     return new FunctionExpression<>(Predicates.isNull(), function);
   }
 
@@ -36,15 +40,15 @@ public class Expressions {
     return new SupplierExpression<>(Predicates.isNotNull(), supplier);
   }
 
-  public static <T, R> Expression<T, Void> isNotNull(Runnable runnable) {
+  public static <T, R> Expression<T, Void> isNotNull(ConnectingRunnable runnable) {
     return new RunnableExpression<>(Predicates.isNotNull(), runnable);
   }
 
-  public static <T, R> Expression<T, Void> isNotNull(Consumer<T> consumer) {
+  public static <T, R> Expression<T, Void> isNotNull(ConnectingConsumer<T> consumer) {
     return new ConsumerExpression<>(Predicates.isNotNull(), consumer);
   }
 
-  public static <T, R> Expression<T, R> isNotNull(Function<T, R> function) {
+  public static <T, R> Expression<T, R> isNotNull(ConnectingFunction<T, R> function) {
     return new FunctionExpression<>(Predicates.isNotNull(), function);
   }
 
@@ -56,16 +60,16 @@ public class Expressions {
     return new SupplierExpression<>(rule, returnValue);
   }
 
-  public static <T> Expression<T, Void> compliesWith(Rule<T> rule, Runnable runnable) {
+  public static <T> Expression<T, Void> compliesWith(Rule<T> rule, ConnectingRunnable runnable) {
     return new RunnableExpression<>(rule, runnable);
   }
 
-  public static <T> Expression<T, Void> compliesWith(Rule<T> rule, Consumer<T> consumer) {
+  public static <T> Expression<T, Void> compliesWith(Rule<T> rule, ConnectingConsumer<T> consumer) {
     return new ConsumerExpression<>(rule, consumer);
   }
 
 
-  public static <T, R> Expression<T, R> compliesWith(Rule<T> rule, Function<T, R> function) {
+  public static <T, R> Expression<T, R> compliesWith(Rule<T> rule, ConnectingFunction<T, R> function) {
     return new FunctionExpression<>(rule, function);
   }
 
@@ -73,15 +77,15 @@ public class Expressions {
     return new SupplierExpression<>(Predicates.is(value), returnValue);
   }
 
-  public static <T> Expression<T, Void> is(T value, Runnable runnable) {
+  public static <T> Expression<T, Void> is(T value, ConnectingRunnable runnable) {
     return new RunnableExpression<>(Predicates.is(value), runnable);
   }
 
-  public static <T> Expression<T, Void> is(T value, Consumer<T> consumer) {
+  public static <T> Expression<T, Void> is(T value, ConnectingConsumer<T> consumer) {
     return new ConsumerExpression<>(Predicates.is(value), consumer);
   }
 
-  public static <T, R> Expression<T, R> is(T value, Function<T, R> function) {
+  public static <T, R> Expression<T, R> is(T value, ConnectingFunction<T, R> function) {
     return new FunctionExpression<>(Predicates.is(value), function);
   }
 
@@ -89,11 +93,11 @@ public class Expressions {
     return new SupplierExpression<>(predicate, () -> returnValue);
   }
 
-  public static <T, R> Expression<T, Void> matchesThatIt(Predicate<T> predicate, Runnable runnable) {
+  public static <T, R> Expression<T, Void> matchesThatIt(Predicate<T> predicate, ConnectingRunnable runnable) {
     return new RunnableExpression<>(predicate, runnable);
   }
 
-  public static <T, R> Expression<T, Void> matchesThatIt(Predicate<T> predicate, Consumer<T> consumer) {
+  public static <T, R> Expression<T, Void> matchesThatIt(Predicate<T> predicate, ConnectingConsumer<T> consumer) {
     return new ConsumerExpression<>(predicate, consumer);
   }
 
@@ -101,15 +105,15 @@ public class Expressions {
     return new SupplierExpression<>(isAnythingElse(), () -> defaultValue, true);
   }
 
-  public static <T, R> Expression<T, Void> isAnyThingElseThen(Runnable defaultRunnable) {
+  public static <T, R> Expression<T, Void> isAnyThingElseThen(ConnectingRunnable defaultRunnable) {
     return new RunnableExpression<>(isAnythingElse(), defaultRunnable);
   }
 
-  public static <T, R> Expression<T, Void> isAnyThingElseThen(Consumer<T> defaultConsumer) {
+  public static <T, R> Expression<T, Void> isAnyThingElseThen(ConnectingConsumer<T> defaultConsumer) {
     return new ConsumerExpression<>(isAnythingElse(), defaultConsumer);
   }
 
-  public static <T, R> Expression<T, R> isAnyThingElseThen(Function<T, R> defaultFunction) {
+  public static <T, R> Expression<T, R> isAnyThingElseThen(ConnectingFunction<T, R> defaultFunction) {
     return new FunctionExpression<>(isAnythingElse(), defaultFunction, true);
   }
 

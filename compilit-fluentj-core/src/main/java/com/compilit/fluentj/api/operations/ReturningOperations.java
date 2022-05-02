@@ -3,7 +3,6 @@ package com.compilit.fluentj.api.operations;
 import com.compilit.fluentj.api.loops.Loop;
 import com.compilit.results.Result;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.compilit.fluentj.api.operations.ExceptionOperations.inCaseOfAnExceptionReturnDefault;
@@ -37,7 +36,7 @@ public final class ReturningOperations {
   }
 
   public static <T> ContinuingFunction<Supplier<T>, T> inCaseOfAnExceptionReturn(T defaultValue) {
-    return it -> inCaseOfAnExceptionReturnDefault(it, defaultValue);
+    return it -> inCaseOfAnExceptionReturnDefault(it, thenReturn(defaultValue));
   }
 
 

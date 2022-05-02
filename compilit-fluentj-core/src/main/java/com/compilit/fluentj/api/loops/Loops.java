@@ -2,29 +2,16 @@ package com.compilit.fluentj.api.loops;
 
 import com.compilit.fluentj.api.expressions.Expression;
 import com.compilit.fluentj.api.operations.ConnectingConsumer;
-import com.compilit.fluentj.api.operations.ConnectingFunction;
-import com.compilit.fluentj.api.operations.ConnectingUnaryOperator;
 import com.compilit.fluentj.api.operations.ContinuingConsumer;
 import com.compilit.fluentj.api.operations.ContinuingFunction;
 import com.compilit.results.Result;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 
 public final class Loops {
   private Loops() {
   }
-
-//  public static <T> void startingWith(T input, Loop<T> loop, ConnectingConsumer<T> consumer) {
-//    loop.setInput(input);
-//    loop.addConsumers(Collections.singletonList(consumer));
-//    loop.resolveAll();
-//  }
 
   public static <T> void startingWith(T input, Loop<T> loop, ContinuingConsumer<T> consumer) {
     loop.setInput(input);
@@ -57,18 +44,13 @@ public final class Loops {
   }
 
   public static <T> void startingWithA(T input, Loop<T> loop, ConnectingConsumer<T> consumer) {
-    startingWith(input,loop, consumer);
+    startingWith(input, loop, consumer);
   }
 
   public static <T> void startingWithAn(T input, Loop<T> loop, ConnectingConsumer<T> consumer) {
-    startingWith(input,loop, consumer);
+    startingWith(input, loop, consumer);
   }
 
-  //  public static <T> Result<T> startingWith(T input, Loop<T> loop, ConnectingConsumer<T> intermittentConsumer, ContinuingFunction<Loop<T>, Result<T>> function) {
-//    loop.addConsumers(Collections.singletonList(intermittentConsumer));
-//    loop.setInput(input);
-//    return function.apply(loop);
-//  }
 
   public static <T> T startingWith(T input, Loop<T> loop) {
     loop.setInput(input);
@@ -101,18 +83,6 @@ public final class Loops {
         return result;
     }
     return null;
-  }
-
-//  public static <T> void forEachEntryIn(Collection<T> collection, ConnectingConsumer<T> consumer) {
-//    collection.forEach(consumer);
-//  }
-
-//  public static <T> Collection<T> eachEntryIn(Collection<T> collection) {
-//    return collection;
-//  }
-
-  public static <T> ConnectingUnaryOperator<Collection<T>> eachEntry(Predicate<T> predicate) {
-    return collection -> collection.stream().filter(predicate).collect(Collectors.toList());
   }
 
 }

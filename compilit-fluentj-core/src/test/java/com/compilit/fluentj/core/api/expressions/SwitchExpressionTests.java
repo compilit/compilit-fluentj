@@ -1,4 +1,4 @@
-package com.compilit.fluentj.core.api;
+package com.compilit.fluentj.core.api.expressions;
 
 import com.compilit.fluentj.exceptions.IncompleteExpressionException;
 import org.assertj.core.api.Assertions;
@@ -11,7 +11,7 @@ import static com.compilit.fluentj.api.expressions.Expressions.isAnyThingElseThe
 import static com.compilit.fluentj.api.operations.ConditionalOperations.then;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
 
-class FluentJSwitchExpressionTests extends AbstractTestWithContext {
+class SwitchExpressionTests extends AbstractTestWithContext {
 
   @Test
   void nonReturningSwitch_singleMatch_shouldInteract() {

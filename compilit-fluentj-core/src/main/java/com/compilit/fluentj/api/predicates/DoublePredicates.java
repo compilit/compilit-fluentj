@@ -1,24 +1,23 @@
 package com.compilit.fluentj.api.predicates;
 
-import com.compilit.fluentj.api.arithmetic.Addition;
-import com.compilit.fluentj.api.loops.LoopOperations;
-
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
+import static com.compilit.fluentj.api.arithmetic.Addition.adding;
 import static com.compilit.fluentj.api.arithmetic.Modulo.modulatingItBy;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.tryStartingWith;
-import static com.compilit.fluentj.api.predicates.Predicates.itIsEither;
-import static com.compilit.fluentj.api.predicates.Predicates.or;
 import static com.compilit.fluentj.api.predicates.Predicates.unless;
+import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
 
 public final class DoublePredicates {
   private DoublePredicates() {
   }
+
   public static Predicate<Double> isEqualTo(final double input) {
     return it -> it == input;
   }
+
   public static Predicate<Double> isLessThen(final double input) {
     return it -> it < input;
   }
@@ -43,25 +42,10 @@ public final class DoublePredicates {
     return itIsDivisibleByTwo().negate();
   }
 
-  public static Predicate<Double> untilReachingOrGoingAbove(final double exclusiveBoundary) {
-    return it -> it < exclusiveBoundary;
-  }
-
-  public static Predicate<Double> untilReachingOrFallingBelow(final double exclusiveBoundary) {
-    return it -> it > exclusiveBoundary;
-  }
-
-  public static Predicate<Double> untilGoingAbove(final double inclusiveBoundary) {
-    return it -> it <= inclusiveBoundary;
-  }
-
-  public static Predicate<Double> untilFallingBelow(final double inclusiveBoundary) {
-    return it -> it >= inclusiveBoundary;
-  }
-
   public static Predicate<Double> itIsAPrimeNumber() {
-    return itIsEither(1d,
-            or(itIsNotDivisibleByAnyOtherNumber()));
+    return thePossiblePrime -> tryStartingWith(2d,
+            keep(adding(1d), untilIt(isMoreThenOrEqualTo(Math.sqrt(thePossiblePrime)))),
+            unless(thePossiblePrime, isDivisibleByTheCurrentNumber()));
   }
 
   public static BiPredicate<Double, Double> isNotDivisibleByTheCurrentNumber() {
@@ -70,12 +54,6 @@ public final class DoublePredicates {
 
   public static BiPredicate<Double, Double> isDivisibleByTheCurrentNumber() {
     return (thePossiblePrime, theCurrentNumber) -> thePossiblePrime % theCurrentNumber == 0;
-  }
-
-  private static Predicate<Double> itIsNotDivisibleByAnyOtherNumber() {
-    return thePossiblePrime -> tryStartingWith(2d,
-            LoopOperations.untilReachingOrGoingAbove(thePossiblePrime / 2, keep(Addition.adding(1d))),
-            unless(thePossiblePrime, isDivisibleByTheCurrentNumber()));
   }
 
 }

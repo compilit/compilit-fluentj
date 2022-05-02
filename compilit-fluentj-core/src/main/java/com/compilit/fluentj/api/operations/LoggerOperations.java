@@ -2,11 +2,6 @@ package com.compilit.fluentj.api.operations;
 
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
-
 public final class LoggerOperations {
   private LoggerOperations() {
   }

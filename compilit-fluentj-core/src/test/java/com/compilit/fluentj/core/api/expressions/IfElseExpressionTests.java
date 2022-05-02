@@ -1,4 +1,4 @@
-package com.compilit.fluentj.core.api;
+package com.compilit.fluentj.core.api.expressions;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn
 import static com.compilit.fluentj.api.predicates.Predicates.is;
 import static org.assertj.core.api.Fail.fail;
 
-class FluentJIfElseExpressionTests extends AbstractTestWithContext {
+class IfElseExpressionTests extends AbstractTestWithContext {
 
   @Test
   void nonReturningIfStatement_true_shouldInteract() {

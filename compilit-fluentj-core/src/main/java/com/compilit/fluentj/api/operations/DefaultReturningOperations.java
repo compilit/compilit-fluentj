@@ -1,7 +1,5 @@
 package com.compilit.fluentj.api.operations;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class DefaultReturningOperations {
@@ -12,10 +10,6 @@ public final class DefaultReturningOperations {
   public static <R> Supplier<R> otherwiseReturn(R defaultValue) {
     return () -> defaultValue;
   }
-
-//  public static <T> BiFunction<T, Predicate<T>, T> otherwiseReturn(T defaultValue) {
-//    return (value, predicate) -> predicate.test(value) ? value : defaultValue;
-//  }
 
   public static Supplier<Boolean> otherwiseItIsTrue() {
     return () -> true;

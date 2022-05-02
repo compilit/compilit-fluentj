@@ -2,9 +2,6 @@ package com.compilit.fluentj.api.operations;
 
 import com.compilit.fluentj.api.expressions.Expression;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-
 public final class ConnectingOperations {
   private ConnectingOperations() {
   }

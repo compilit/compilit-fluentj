@@ -23,7 +23,7 @@ public final class CastingOperations<T> {
   }
 
   public static <T, R> R cast(T value, CastingFunction<T, R> function, Supplier<R> defaultSupplier) {
-    return inCaseOfAnExceptionReturnDefault(() -> function.apply(value), defaultSupplier.get());
+    return inCaseOfAnExceptionReturnDefault(() -> function.apply(value), defaultSupplier);
   }
 
 }

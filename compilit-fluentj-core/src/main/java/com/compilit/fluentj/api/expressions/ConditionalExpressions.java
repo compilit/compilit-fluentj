@@ -1,6 +1,5 @@
 package com.compilit.fluentj.api.expressions;
 
-import com.compilit.fluentj.api.operations.ConnectingConsumer;
 import com.compilit.fluentj.exceptions.IncompleteExpressionException;
 
 import java.util.function.Consumer;
@@ -15,6 +14,7 @@ public final class ConditionalExpressions {
 
   /**
    * A non-returning if-expression.
+   *
    * @param input     the value that goes into the if-expression.
    * @param predicate the predicate to test against the input value.
    * @param runnable  the operation that needs to be run if the predicate returns true.
@@ -27,6 +27,7 @@ public final class ConditionalExpressions {
 
   /**
    * A non-returning if-expression with a default.
+   *
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value.
    * @param runnable        the operation that needs to be run if the predicate returns true.
@@ -44,6 +45,7 @@ public final class ConditionalExpressions {
 
   /**
    * A non-returning if-expression.
+   *
    * @param input     the value that goes into the if-expression.
    * @param predicate the predicate to test against the input value. Takes the input as an argument.
    * @param consumer  the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -56,6 +58,7 @@ public final class ConditionalExpressions {
 
   /**
    * A non-returning if-expression with a default.
+   *
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value.
    * @param consumer        the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -71,6 +74,7 @@ public final class ConditionalExpressions {
 
   /**
    * A returning if-expression. Since you return something, an alternative (default) needs to be provided.
+   *
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value. Takes the input as an argument.
    * @param supplier        the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -87,6 +91,7 @@ public final class ConditionalExpressions {
 
   /**
    * A returning if-expression. The function arguments are like mappers for you input. Since you return something, an alternative (default) needs to be provided.
+   *
    * @param input           the value that goes into the if-expression.
    * @param predicate       the predicate to test against the input value. Takes the input as an argument.
    * @param function        the operation that needs to be run if the predicate returns true. Takes the input as an argument.
@@ -108,6 +113,7 @@ public final class ConditionalExpressions {
    * This function is really flexible and as a result, it will not tell you if you've forgotten to state a default returning action at compile time.
    * It will, however, throw an "IncompleteStatementException" at runtime if the statement is incomplete to still catch bugs like this as early as possible.
    * To be clear: an incomplete statement would be something like this, which would cause a compile-time error
+   *
    * @param input                the value that goes into the switch-expression.
    * @param expression           the initial expression, take a look at the "Expressions" to get an idea of the possibilities.
    * @param expressionExtensions the extra expression until it is complete, take a look at the "Expressions.class" to get an idea of the possibilities.
@@ -133,6 +139,7 @@ public final class ConditionalExpressions {
    * This function is really flexible and as a result, it will not tell you if you've forgotten to state a default returning action at compile time.
    * It will, however, throw an "IncompleteStatementException" at runtime if the statement is incomplete to still catch bugs like this as early as possible.
    * To be clear: an incomplete statement would be something like this, which would cause a compile-time error
+   *
    * @param expression           the initial expression, take a look at the "Expressions" to get an idea of the possibilities.
    * @param expressionExtensions the extra expression until it is complete, take a look at the "Expressions.class" to get an idea of the possibilities.
    * @param <T>                  the type of the input of the switch-expression.

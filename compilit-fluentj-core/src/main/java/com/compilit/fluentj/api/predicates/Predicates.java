@@ -1,13 +1,11 @@
 package com.compilit.fluentj.api.predicates;
 
 import com.compilit.fluentj.api.operations.ConnectingConsumer;
-import com.compilit.fluentj.api.operations.ConnectingFunction;
 import com.compilit.fluentj.api.operations.ConnectingRunnable;
 
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.BiPredicate;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 

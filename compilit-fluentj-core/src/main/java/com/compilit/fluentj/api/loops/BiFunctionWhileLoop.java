@@ -22,12 +22,6 @@ class BiFunctionWhileLoop<T> extends AbstractLoop<T> implements Loop<T> {
     this.consumers.addAll(consumerList);
   }
 
-  protected BiFunctionWhileLoop(T input, BiFunction<T, T, T> biFunction, Predicate<T> predicate) {
-    super(input);
-    this.mainPredicate = predicate;
-    this.biFunction = biFunction;
-  }
-
   @Override
   public T resolveAll() {
     if (!consumers.isEmpty())

@@ -1,4 +1,4 @@
-package com.compilit.fluentj.core.api;
+package com.compilit.fluentj.core.api.loops;
 
 import com.compilit.results.Result;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,50 +15,51 @@ import static com.compilit.fluentj.api.arithmetic.Subtraction.subtractingItWith;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilFallingBelow;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilGoingAbove;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilReachingOrFallingBelow;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilReachingOrGoingAbove;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.isLessThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.isLessThenOrEqualTo;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThenOrEqualTo;
+import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class FluentJForLoopExampleTests extends AbstractTestWithContext {
+class ForLoopExampleTests extends AbstractTestWithContext {
 
   private static final Supplier<Result<?>> testCase1 =
           () -> startingWith(1,
-                  keep(multiplyingItBy(10), untilReachingOrGoingAbove(10)),
+                  keep(multiplyingItBy(10), untilIt(isMoreThen(10))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase2 =
           () -> startingWith(1,
-                  keep(multiplyingItBy(10), untilGoingAbove(10)),
+                  keep(multiplyingItBy(10), untilIt(isMoreThen(10))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase3 =
           () -> startingWith(10,
-                  keep(multiplyingItBy(10), untilGoingAbove(1000)),
+                  keep(multiplyingItBy(10), untilIt(isMoreThen(1000))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase4 =
           () -> startingWith(0,
-                  keep(adding(1), untilReachingOrGoingAbove(10)),
+                  keep(adding(1), untilIt(isMoreThenOrEqualTo(10))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase5 =
           () -> startingWith(1000,
-                  keep(subtractingItWith(1), untilReachingOrFallingBelow(-1000)),
+                  keep(subtractingItWith(1), untilIt(isLessThenOrEqualTo(-1000))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase6 =
           () -> startingWith(1000,
-                  keep(subtractingItWith(1), untilFallingBelow(-1000)),
+                  keep(subtractingItWith(1), untilIt(isLessThenOrEqualTo(-1000))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase7 =
           () -> startingWith(1000,
-                  keep(multiplyingItBy(-2), untilReachingOrFallingBelow(0)),
+                  keep(multiplyingItBy(-2), untilIt(isLessThenOrEqualTo(0))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase8 =
           () -> startingWith(1000,
-                  keep(multiplyingItBy(-2), untilFallingBelow(0)),
+                  keep(multiplyingItBy(-2), untilIt(isLessThen((0)))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase9 =
           () -> startingWith(0,
-                  keep(adding(1), untilGoingAbove(10)),
+                  keep(adding(1), untilIt(isMoreThen(10))),
                   thenReturnTheResult());
 
   @ParameterizedTest

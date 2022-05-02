@@ -19,10 +19,6 @@ abstract class AbstractLoop<T> implements Loop<T> {
   protected AbstractLoop() {
   }
 
-  protected AbstractLoop(T input) {
-    this.input = input;
-  }
-
   @Override
   public void resolveAllAndThen(Consumer<T> consumer) {
     var result = resolveAll();

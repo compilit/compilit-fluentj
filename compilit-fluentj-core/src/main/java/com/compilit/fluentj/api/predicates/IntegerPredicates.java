@@ -7,9 +7,8 @@ import static com.compilit.fluentj.api.arithmetic.Addition.adding;
 import static com.compilit.fluentj.api.arithmetic.Modulo.modulatingItBy;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.tryStartingWith;
-import static com.compilit.fluentj.api.predicates.Predicates.itIsEither;
-import static com.compilit.fluentj.api.predicates.Predicates.or;
 import static com.compilit.fluentj.api.predicates.Predicates.unless;
+import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
 
 public final class IntegerPredicates {
   private IntegerPredicates() {
@@ -18,6 +17,7 @@ public final class IntegerPredicates {
   public static Predicate<Integer> isEqualTo(final int input) {
     return it -> it == input;
   }
+
   public static Predicate<Integer> isLessThen(final int input) {
     return it -> it < input;
   }
@@ -34,35 +34,18 @@ public final class IntegerPredicates {
     return it -> it <= input;
   }
 
+  public static Predicate<Integer> itIsAPrimeNumber() {
+    return thePossiblePrime -> tryStartingWith(2,
+            keep(adding(1), untilIt(isMoreThenOrEqualTo((int) Math.sqrt(thePossiblePrime)))),
+            unless(thePossiblePrime, isDivisibleByTheCurrentNumber()));
+  }
+
   public static Predicate<Integer> itIsDivisibleByTwo() {
     return it -> modulatingItBy(2).apply(it) == 0;
   }
 
   public static Predicate<Integer> itIsNotDivisibleByTwo() {
     return itIsDivisibleByTwo().negate();
-  }
-
-  public static Predicate<Integer> untilReachingOrGoingAbove(final int exclusiveBoundary) {
-    return it -> it < exclusiveBoundary;
-  }
-
-  public static Predicate<Integer> untilReachingOrFallingBelow(final int exclusiveBoundary) {
-    return it -> it > exclusiveBoundary;
-  }
-
-  public static Predicate<Integer> untilGoingAbove(final int inclusiveBoundary) {
-    return it -> it <= inclusiveBoundary;
-  }
-
-  public static Predicate<Integer> untilFallingBelow(final int inclusiveBoundary) {
-    return it -> it >= inclusiveBoundary;
-  }
-
-
-  public static Predicate<Integer> itIsAPrimeNumber() {
-    return thePossiblePrime -> tryStartingWith(2,
-            keep(adding(1), untilGoingAbove((int) Math.sqrt(thePossiblePrime))),
-            unless(thePossiblePrime, isDivisibleByTheCurrentNumber()));
   }
 
   public static BiPredicate<Integer, Integer> isDivisibleByTheCurrentNumber() {

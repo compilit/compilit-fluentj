@@ -1,4 +1,4 @@
-package com.compilit.fluentj.core.api;
+package com.compilit.fluentj.core.api.arithmetic;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,14 +10,15 @@ import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.operations.ConnectingOperations.and;
 import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.untilGoingAbove;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThen;
+import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
 
-public class FluentJAdditionsTests {
+public class AdditionsTests {
 
   @Test
   void adding_shouldAddUntilGoingAboveBoundary() {
     var actual = startingWith(1,
-            keep(adding(1), untilGoingAbove(100), and(printIt())),
+            keep(adding(1), untilIt(isMoreThen(100)), and(printIt())),
             thenReturnTheResult());
     Assertions.assertThat(actual.getContents()).isEqualTo(101);
   }
@@ -25,7 +26,7 @@ public class FluentJAdditionsTests {
   @Test
   void incrementingIt_shouldIncrementUntilGoingAboveBoundary() {
     var actual = startingWith(1,
-            keep(incrementingIt(), untilGoingAbove(100), and(printIt())),
+            keep(incrementingIt(), untilIt(isMoreThen(100)), and(printIt())),
             thenReturnTheResult());
     Assertions.assertThat(actual.getContents()).isEqualTo(128);
   }

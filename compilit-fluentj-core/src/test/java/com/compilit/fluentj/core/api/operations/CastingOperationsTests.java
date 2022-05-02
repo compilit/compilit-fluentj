@@ -1,4 +1,4 @@
-package com.compilit.fluentj.core.api;
+package com.compilit.fluentj.core.api.operations;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import static com.compilit.fluentj.api.operations.DefaultReturningOperations.oth
 import static com.compilit.fluentj.api.operations.ExceptionOperations.inCaseOfAnException;
 import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 
-class FluentJCastingOperationsTests extends AbstractValueTests {
+class CastingOperationsTests extends AbstractValueTests {
 
   @Test
   void to_noException_shouldReturnStringValue() {
