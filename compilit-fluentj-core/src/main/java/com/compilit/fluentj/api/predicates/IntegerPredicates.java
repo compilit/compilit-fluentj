@@ -8,36 +8,36 @@ import static com.compilit.fluentj.api.arithmetic.Modulo.modulatingItBy;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.tryStartingWith;
 import static com.compilit.fluentj.api.predicates.Predicates.unless;
-import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
+import static com.compilit.fluentj.api.predicates.Predicates.until;
 
 public final class IntegerPredicates {
   private IntegerPredicates() {
   }
 
-  public static Predicate<Integer> isEqualTo(final int input) {
+  public static Predicate<Integer> itIsEqualTo(final int input) {
     return it -> it == input;
   }
 
-  public static Predicate<Integer> isLessThen(final int input) {
+  public static Predicate<Integer> itIsLessThen(final int input) {
     return it -> it < input;
   }
 
-  public static Predicate<Integer> isMoreThen(final int input) {
+  public static Predicate<Integer> itIsMoreThen(final int input) {
     return it -> it > input;
   }
 
-  public static Predicate<Integer> isMoreThenOrEqualTo(final int input) {
+  public static Predicate<Integer> itIsEqualToOrMoreThen(final int input) {
     return it -> it >= input;
   }
 
-  public static Predicate<Integer> isLessThenOrEqualTo(final int input) {
+  public static Predicate<Integer> itIsEqualToOrLessThen(final int input) {
     return it -> it <= input;
   }
 
   public static Predicate<Integer> itIsAPrimeNumber() {
     return thePossiblePrime -> tryStartingWith(2,
-            keep(adding(1), untilIt(isMoreThenOrEqualTo((int) Math.sqrt(thePossiblePrime)))),
-            unless(thePossiblePrime, isDivisibleByTheCurrentNumber()));
+            keep(adding(1), until(itIsEqualToOrMoreThen((int) Math.sqrt(thePossiblePrime)))),
+            unless(thePossiblePrime, itIsDivisibleByTheCurrentNumber()));
   }
 
   public static Predicate<Integer> itIsDivisibleByTwo() {
@@ -48,12 +48,12 @@ public final class IntegerPredicates {
     return itIsDivisibleByTwo().negate();
   }
 
-  public static BiPredicate<Integer, Integer> isDivisibleByTheCurrentNumber() {
-    return (thePossiblePrime, theCurrentNumber) -> thePossiblePrime % theCurrentNumber == 0;
+  public static BiPredicate<Integer, Integer> itIsDivisibleByTheCurrentNumber() {
+    return (input, theCurrentNumber) -> input % theCurrentNumber == 0;
   }
 
-  public static BiPredicate<Integer, Integer> isNotDivisibleByTheCurrentNumber() {
-    return isDivisibleByTheCurrentNumber().negate();
+  public static BiPredicate<Integer, Integer> itIsNotDivisibleByTheCurrentNumber() {
+    return itIsDivisibleByTheCurrentNumber().negate();
   }
 
 }

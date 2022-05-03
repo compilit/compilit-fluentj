@@ -7,8 +7,8 @@ import testutil.AbstractTestWithContext;
 
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
 import static com.compilit.fluentj.api.expressions.Expressions.is;
-import static com.compilit.fluentj.api.expressions.Expressions.isAnyThingElseThenReturn;
-import static com.compilit.fluentj.api.operations.ConditionalOperations.then;
+import static com.compilit.fluentj.api.expressions.Expressions.otherwiseReturn;
+import static com.compilit.fluentj.api.operations.ConnectingOperations.then;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
 
 class SwitchExpressionTests extends AbstractTestWithContext {
@@ -55,7 +55,7 @@ class SwitchExpressionTests extends AbstractTestWithContext {
             is(1, thenReturn(expected)),
             is(1, thenReturn(notExpected)),
             is(1, thenReturn(notExpected)),
-            isAnyThingElseThenReturn(notExpected));
+            otherwiseReturn(notExpected));
     Assertions.assertThat(result).isEqualTo(expected);
   }
 
@@ -65,7 +65,7 @@ class SwitchExpressionTests extends AbstractTestWithContext {
             is(10, thenReturn(notExpected)),
             is(10, thenReturn(notExpected)),
             is(1, thenReturn(expected)),
-            isAnyThingElseThenReturn(notExpected));
+            otherwiseReturn(notExpected));
     Assertions.assertThat(result).isEqualTo(expected);
   }
 

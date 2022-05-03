@@ -1,7 +1,6 @@
 package examples;
 
 import com.compilit.fluentj.api.operations.ConnectingConsumer;
-import com.compilit.fluentj.api.operations.LoggerOperations;
 import org.junit.jupiter.api.Test;
 import testutil.TestEnum;
 import testutil.TestObject;
@@ -11,37 +10,33 @@ import java.util.List;
 import static com.compilit.fluentj.api.arithmetic.Addition.adding;
 import static com.compilit.fluentj.api.arithmetic.Multiplication.multiplyingItBy;
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
-import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThatIt;
 import static com.compilit.fluentj.api.expressions.Expressions.is;
-import static com.compilit.fluentj.api.expressions.Expressions.isAnyThingElseThen;
-import static com.compilit.fluentj.api.expressions.Expressions.isAnyThingElseThenReturn;
 import static com.compilit.fluentj.api.expressions.Expressions.isNull;
-import static com.compilit.fluentj.api.expressions.Expressions.matchesThatIt;
+import static com.compilit.fluentj.api.expressions.Expressions.matchesThat;
+import static com.compilit.fluentj.api.expressions.Expressions.otherwise;
+import static com.compilit.fluentj.api.expressions.Expressions.otherwiseReturn;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.loops.Loops.takeEachEntryIn;
-import static com.compilit.fluentj.api.operations.ConditionalOperations.then;
 import static com.compilit.fluentj.api.operations.ConnectingOperations.and;
-import static com.compilit.fluentj.api.operations.DefaultReturningOperations.otherwise;
-import static com.compilit.fluentj.api.operations.DefaultReturningOperations.otherwiseReturn;
+import static com.compilit.fluentj.api.operations.ConnectingOperations.then;
 import static com.compilit.fluentj.api.operations.LoggerOperations.debugLogIt;
 import static com.compilit.fluentj.api.operations.LoggerOperations.print;
 import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
 import static com.compilit.fluentj.api.operations.StringOperations.appending;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.isEqualTo;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.isLessThen;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThen;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThenOrEqualTo;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualTo;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsMoreThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualToOrMoreThen;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
-import static com.compilit.fluentj.api.predicates.Predicates.asLongAsIt;
-import static com.compilit.fluentj.api.predicates.Predicates.isAnyOf;
-import static com.compilit.fluentj.api.predicates.Predicates.isNot;
+import static com.compilit.fluentj.api.predicates.Predicates.asLongAs;
 import static com.compilit.fluentj.api.predicates.Predicates.isNotNull;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
+import static com.compilit.fluentj.api.predicates.Predicates.itIsNot;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsNotNull;
-import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
+import static com.compilit.fluentj.api.predicates.Predicates.until;
 import static org.assertj.core.api.Assertions.assertThat;
 import static testutil.TestEnum.ONE;
 import static testutil.TestEnum.THREE;
@@ -54,39 +49,39 @@ class FluentJApiExamples {
   @Test
   void whileLoopTest() {
     startingWith(0,
-            keep(adding(1), asLongAsIt(isLessThen(10))), and(printIt()));
+            keep(adding(1), asLongAs(itIsLessThen(10))), and(printIt()));
     assertThat(startingWith(0,
-            keep(adding(1), asLongAsIt(isLessThen(10))),
+            keep(adding(1), asLongAs(itIsLessThen(10))),
             thenReturnTheResult()).getContents()).isEqualTo(10);
     startingWith("a",
-            keep(appending("a"), asLongAsIt(isNot("aaaaaaaaaa")), andInCaseThat(itIs("aaa"), printIt())));
+            keep(appending("a"), asLongAs(itIsNot("aaaaaaaaaa")), andInCaseThat(itIs("aaa"), printIt())));
   }
 
   @Test
   void forLoopsTest() {
     //exclusive boundary
-    assertThat(startingWith(100, keep(multiplyingItBy(2), untilIt(isMoreThen(100000))), thenReturnTheResult()).getContents()).isEqualTo(102400);
+    assertThat(startingWith(100, keep(multiplyingItBy(2), until(itIsMoreThen(100000))), thenReturnTheResult()).getContents()).isEqualTo(102400);
 
     var testObject = new TestObject(1);
 
     //exclusive boundary
-    startingWith(0, keep(adding(1), untilIt(isEqualTo(10)), and(testObject::changeValue)));
+    startingWith(0, keep(adding(1), until(itIsEqualTo(10)), and(testObject::changeValue)));
     //inclusive boundary
-    startingWith(0, keep(adding(1), untilIt(isMoreThen(10)), and(testObject::changeValue)));
+    startingWith(0, keep(adding(1), until(itIsMoreThen(10)), and(testObject::changeValue)));
     assertThat(testObject.getValue()).isEqualTo(10);
     testObject = new TestObject(1);
-    startingWith(0, keep(adding(1), untilIt(isMoreThen(10)), and(testObject::changeValue)));
+    startingWith(0, keep(adding(1), until(itIsMoreThen(10)), and(testObject::changeValue)));
     assertThat(testObject.getValue()).isEqualTo(9);
     testObject = new TestObject(1);
-    startingWith(0, keep(adding(1), untilIt(isMoreThen(10)), and(testObject::increment)));
+    startingWith(0, keep(adding(1), until(itIsMoreThen(10)), and(testObject::increment)));
     assertThat(testObject.getValue()).isEqualTo(46);
-    startingWith(1, keep(multiplyingItBy(2), untilIt(isMoreThenOrEqualTo(100))), then(printIt()));
+    startingWith(1, keep(multiplyingItBy(2), until(itIsEqualToOrMoreThen(100))), then(printIt()));
   }
 
   @Test
   void ifElseStatementsTest() {
     var theInput = 10;
-    inCaseThat(theInput, is(10, then(print("it's 10!"))), isAnyThingElseThen(print("it's not 10...")));
+    inCaseThat(theInput, is(10, then(print("it's 10!"))), otherwise(print("it's not 10...")));
     inCaseThat(theInput, is(10, then(print("it is 10!"))));
     //or, to print the actual value
     inCaseThat(theInput, is(10, then(printIt())));
@@ -98,7 +93,7 @@ class FluentJApiExamples {
     //Returning values is also possible. The return value type is specified in the thenReturn function so it doesnt have to be the same as the input
     var result = inCaseThat(theInput,
             is(10, thenReturn("test")),
-            isAnyThingElseThenReturn("bla"));
+            otherwiseReturn("bla"));
 
   }
 
@@ -111,45 +106,33 @@ class FluentJApiExamples {
             is(10, printIt()),
             is(100, printIt()),
             is(1000, printIt()),
-            matchesThatIt(isNotNull(), printIt()),
-            isAnyThingElseThen(print("none")));
+            matchesThat(isNotNull(), printIt()),
+            otherwise(print("none")));
     //prints 10 3 times
     inCaseThat(theInput,
             is(10, printIt()),
             is(10, printIt()),
             is(10, printIt()),
-            isAnyThingElseThen(print("none")));
+            otherwise(print("none")));
 
     inCaseThat(theInput,
             is(1, printIt()),
             is(2, print("this is something else")),
             is(3, print("this is also something else")),
-            isAnyThingElseThen(print("none")));
+            otherwise(print("none")));
 
     //with a predicate expression
     inCaseThat(null,
             isNull(printIt()),
             is(10, printIt()),
             is(10, printIt()),
-            isAnyThingElseThen(print("none")));
+            otherwise(print("none")));
 
     //with a predicate expression
-    var expression = inCaseThatIt(isNull(printIt()),
+    var expression = inCaseThat(isNull(printIt()),
             is(10, printIt()),
             is(10, printIt()),
-            isAnyThingElseThen(print("none")));
-
-    inCaseThat(theInput, isAnyOf(10, 100, 1000), then(printIt()));
-    inCaseThat(theInput, isAnyOf(10, 100, 1000), then(printIt()));
-    var actual = inCaseThat(theInput, isAnyOf(10, 100, 1000), thenReturn(100), otherwiseReturn(1));
-    assertThat(actual).isEqualTo(100);
-
-    inCaseThat(THREE, isAnyOf(ONE, TWO), then(printIt()));
-    var actual3 = inCaseThat(ONE, isAnyOf(ONE, TWO), thenReturn(100), otherwiseReturn(1));
-    assertThat(actual3).isEqualTo(100);
-
-    inCaseThat(theInput, isAnyOf(10, 11, 113123), then(print("yay")), otherwise(print("nay")));
-
+            otherwise(print("none")));
   }
 
   @Test
@@ -162,16 +145,11 @@ class FluentJApiExamples {
     takeEachEntryIn(theList, and(debugLogIt()));
     takeEachEntryIn(theCollection(), printIt());
 
-    var expression = inCaseThatIt(
+    var expression = inCaseThat(
             isNull(thenReturn("null")),
             is("10", thenReturn("10")),
             is("11", thenReturn("11")),
-            isAnyThingElseThenReturn("none"));
-    var result = takeEachEntryIn(List.of("test1", "test2", "11"), inCaseThatIt(
-            isNull(thenReturn("null")),
-            is("10", thenReturn("10")),
-            is("11", thenReturn("11")),
-            isAnyThingElseThenReturn("none")));
+            otherwiseReturn("none"));
   }
 
   private static ConnectingConsumer<TestEnum> printItOnCondition() {
@@ -179,7 +157,7 @@ class FluentJApiExamples {
             is(ONE, print("1")),
             is(TWO, printIt()),
             is(THREE, print("3")),
-            isAnyThingElseThen(print("none")));
+            otherwise(print("none")));
   }
 
 }

@@ -6,6 +6,7 @@ import com.compilit.fluentj.api.operations.ConnectingRunnable;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -52,9 +53,9 @@ public final class Predicates {
     return predicate;
   }
 
-  public static <T> Predicate<T> or(final T possibleEqual) {
-    return it -> Objects.equals(it, possibleEqual);
-  }
+//  public static <T> Predicate<T> or(final T possibleEqual) {
+//    return it -> Objects.equals(it, possibleEqual);
+//  }
 
   public static <T> Predicate<T> and(final Predicate<T> predicate) {
     return predicate;
@@ -93,11 +94,11 @@ public final class Predicates {
     return itContains(entry).negate();
   }
 
-  public static <T> Predicate<T> asLongAsIt(final Predicate<T> predicate) {
+  public static <T> Predicate<T> asLongAs(final Predicate<T> predicate) {
     return predicate;
   }
 
-  public static <T> Predicate<T> untilIt(final Predicate<T> predicate) {
+  public static <T> Predicate<T> until(final Predicate<T> predicate) {
     return predicate.negate();
   }
 
@@ -115,23 +116,20 @@ public final class Predicates {
     };
   }
 
-  public static <T> Predicate<T> andInCaseThat(final Predicate<T> predicate, Supplier<Boolean> supplier, Supplier<Boolean> defaultSupplier) {
+//  public static <T> Predicate<T> andInCaseThat(final Predicate<T> predicate, Supplier<Boolean> supplier, Supplier<Boolean> defaultSupplier) {
+//    return it -> {
+//      if (predicate.test(it))
+//        return supplier.get();
+//      return defaultSupplier.get();
+//    };
+//  }
+
+  public static <T, R> Function<T, T> andInCaseThat(final Predicate<T> predicate, Supplier<T> supplier, Supplier<T> defaultSupplier) {
     return it -> {
       if (predicate.test(it))
         return supplier.get();
       return defaultSupplier.get();
     };
-  }
-
-  @SafeVarargs
-  public static <T> Predicate<T> isAnyOf(T value, T... values) {
-    Predicate<T> predicate = x -> Objects.equals(x, value);
-    if (values != null && values.length > 0) {
-      for (var v : values) {
-        predicate = predicate.or(x -> Objects.equals(x, v));
-      }
-    }
-    return predicate;
   }
 
   public static <T> Predicate<T> itIsAnInteger() {
@@ -158,11 +156,11 @@ public final class Predicates {
     return clazz::isInstance;
   }
 
-  public static <T> Predicate<T> it(Predicate<T> predicate) {
-    return predicate;
-  }
+//  public static <T> Predicate<T> it(Predicate<T> predicate) {
+//    return predicate;
+//  }
 
-  public static <T> Predicate<T> isAnythingElse() {
+  public static <T> Predicate<T> itIsAnythingElse() {
     return it -> true;
   }
 

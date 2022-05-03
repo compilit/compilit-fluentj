@@ -13,12 +13,12 @@ public final class LoopOperations {
   }
 
   @SafeVarargs
-  public static <T> Loop<T> asLongAsIt(final Predicate<T> predicate, ConnectingUnaryOperator<T> function, ConnectingConsumer<T>... consumers) {
+  public static <T> Loop<T> asLongAs(final Predicate<T> predicate, ConnectingUnaryOperator<T> function, ConnectingConsumer<T>... consumers) {
     return new WhileLoop<>(function, predicate, List.of(consumers));
   }
 
   @SafeVarargs
-  public static <T> Loop<T> untilIt(final Predicate<T> predicate, ConnectingUnaryOperator<T> function, ConnectingConsumer<T>... consumers) {
+  public static <T> Loop<T> until(final Predicate<T> predicate, ConnectingUnaryOperator<T> function, ConnectingConsumer<T>... consumers) {
     return new DoWhileLoop<>(function, predicate.negate(), List.of(consumers));
   }
 

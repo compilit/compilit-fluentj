@@ -22,7 +22,7 @@ class Example {
             is(1, printIt()),
             is(2, print("this is something else"))),
             is(3, print("this is also something else")),
-            isAnyThingElseThen(print("none"));
+            otherwise(print("none"));
 
   }
 

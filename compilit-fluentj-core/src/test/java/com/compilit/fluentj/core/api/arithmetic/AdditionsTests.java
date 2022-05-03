@@ -10,15 +10,15 @@ import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.operations.ConnectingOperations.and;
 import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThen;
-import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsMoreThen;
+import static com.compilit.fluentj.api.predicates.Predicates.until;
 
 public class AdditionsTests {
 
   @Test
   void adding_shouldAddUntilGoingAboveBoundary() {
     var actual = startingWith(1,
-            keep(adding(1), untilIt(isMoreThen(100)), and(printIt())),
+            keep(adding(1), until(itIsMoreThen(100)), and(printIt())),
             thenReturnTheResult());
     Assertions.assertThat(actual.getContents()).isEqualTo(101);
   }
@@ -26,7 +26,7 @@ public class AdditionsTests {
   @Test
   void incrementingIt_shouldIncrementUntilGoingAboveBoundary() {
     var actual = startingWith(1,
-            keep(incrementingIt(), untilIt(isMoreThen(100)), and(printIt())),
+            keep(incrementingIt(), until(itIsMoreThen(100)), and(printIt())),
             thenReturnTheResult());
     Assertions.assertThat(actual.getContents()).isEqualTo(128);
   }

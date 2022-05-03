@@ -3,6 +3,7 @@ package com.compilit.fluentj.api.operations;
 import com.compilit.fluentj.api.loops.Loop;
 import com.compilit.results.Result;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static com.compilit.fluentj.api.operations.ExceptionOperations.inCaseOfAnExceptionReturnDefault;

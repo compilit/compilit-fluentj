@@ -2,18 +2,14 @@ package com.compilit.fluentj.api.expressions;
 
 import com.compilit.fluentj.api.operations.ConnectingConsumer;
 import com.compilit.fluentj.api.operations.ConnectingRunnable;
-import com.compilit.fluentj.api.operations.ConnectingConsumer;
 import com.compilit.fluentj.api.operations.ConnectingFunction;
-import com.compilit.fluentj.api.operations.ConnectingRunnable;
 import com.compilit.fluentj.api.predicates.Predicates;
 import com.compilit.validation.api.contracts.Rule;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static com.compilit.fluentj.api.predicates.Predicates.isAnythingElse;
+import static com.compilit.fluentj.api.predicates.Predicates.itIsAnythingElse;
 
 public class Expressions {
 
@@ -89,32 +85,32 @@ public class Expressions {
     return new FunctionExpression<>(Predicates.is(value), function);
   }
 
-  public static <T, R> Expression<T, R> matchesThatIt(Predicate<T> predicate, R returnValue) {
+  public static <T, R> Expression<T, R> matchesThat(Predicate<T> predicate, R returnValue) {
     return new SupplierExpression<>(predicate, () -> returnValue);
   }
 
-  public static <T, R> Expression<T, Void> matchesThatIt(Predicate<T> predicate, ConnectingRunnable runnable) {
+  public static <T, R> Expression<T, Void> matchesThat(Predicate<T> predicate, ConnectingRunnable runnable) {
     return new RunnableExpression<>(predicate, runnable);
   }
 
-  public static <T, R> Expression<T, Void> matchesThatIt(Predicate<T> predicate, ConnectingConsumer<T> consumer) {
+  public static <T, R> Expression<T, Void> matchesThat(Predicate<T> predicate, ConnectingConsumer<T> consumer) {
     return new ConsumerExpression<>(predicate, consumer);
   }
 
-  public static <T, R> Expression<T, R> isAnyThingElseThenReturn(R defaultValue) {
-    return new SupplierExpression<>(isAnythingElse(), () -> defaultValue, true);
+  public static <T, R> Expression<T, R> otherwiseReturn(R defaultValue) {
+    return new SupplierExpression<>(itIsAnythingElse(), () -> defaultValue, true);
   }
 
-  public static <T, R> Expression<T, Void> isAnyThingElseThen(ConnectingRunnable defaultRunnable) {
-    return new RunnableExpression<>(isAnythingElse(), defaultRunnable);
+  public static <T, R> Expression<T, Void> otherwise(ConnectingRunnable defaultRunnable) {
+    return new RunnableExpression<>(itIsAnythingElse(), defaultRunnable);
   }
 
-  public static <T, R> Expression<T, Void> isAnyThingElseThen(ConnectingConsumer<T> defaultConsumer) {
-    return new ConsumerExpression<>(isAnythingElse(), defaultConsumer);
+  public static <T, R> Expression<T, Void> otherwise(ConnectingConsumer<T> defaultConsumer) {
+    return new ConsumerExpression<>(itIsAnythingElse(), defaultConsumer);
   }
 
-  public static <T, R> Expression<T, R> isAnyThingElseThen(ConnectingFunction<T, R> defaultFunction) {
-    return new FunctionExpression<>(isAnythingElse(), defaultFunction, true);
+  public static <T, R> Expression<T, R> otherwise(ConnectingFunction<T, R> defaultFunction) {
+    return new FunctionExpression<>(itIsAnythingElse(), defaultFunction, true);
   }
 
 }

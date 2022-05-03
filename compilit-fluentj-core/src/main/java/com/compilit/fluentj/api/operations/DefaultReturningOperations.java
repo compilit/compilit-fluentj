@@ -7,7 +7,7 @@ public final class DefaultReturningOperations {
   private DefaultReturningOperations() {
   }
 
-  public static <R> Supplier<R> otherwiseReturn(R defaultValue) {
+  public static <T> Supplier<T> otherwiseReturn(T defaultValue) {
     return () -> defaultValue;
   }
 

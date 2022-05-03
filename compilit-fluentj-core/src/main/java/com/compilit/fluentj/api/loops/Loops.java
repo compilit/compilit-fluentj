@@ -2,6 +2,7 @@ package com.compilit.fluentj.api.loops;
 
 import com.compilit.fluentj.api.expressions.Expression;
 import com.compilit.fluentj.api.operations.ConnectingConsumer;
+import com.compilit.fluentj.api.operations.ConnectingFunction;
 import com.compilit.fluentj.api.operations.ContinuingConsumer;
 import com.compilit.fluentj.api.operations.ContinuingFunction;
 import com.compilit.results.Result;

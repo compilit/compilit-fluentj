@@ -7,14 +7,14 @@ import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.operations.ConnectingOperations.and;
 import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.isMoreThen;
-import static com.compilit.fluentj.api.predicates.Predicates.untilIt;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsMoreThen;
+import static com.compilit.fluentj.api.predicates.Predicates.until;
 
 class FibonacciExampleTest {
   @Test
   void fluentJFibonacci() {
     startingWith(1,
-            keep(addingThePreviousValueToIt(), untilIt(isMoreThen(1000)),
+            keep(addingThePreviousValueToIt(), until(itIsMoreThen(1000)),
                     and(printIt())));
   }
 

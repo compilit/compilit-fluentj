@@ -22,4 +22,12 @@ public final class ConnectingOperations {
     return function;
   }
 
+  public static ConnectingRunnable then(ConnectingRunnable runnable) {
+    return runnable;
+  }
+
+  public static <T> ConnectingConsumer<T> then(ConnectingConsumer<T> consumer) {
+    return consumer;
+  }
+
 }
