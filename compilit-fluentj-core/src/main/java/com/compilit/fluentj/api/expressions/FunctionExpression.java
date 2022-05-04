@@ -25,12 +25,12 @@ class FunctionExpression<T, R> implements Expression<T, R> {
   }
 
   @Override
-  public R apply(T input) {
+  public R apply(T input, boolean hasMatchedPredicate) {
     if (!isComplete)
       throw new IncompleteExpressionException();
     if (predicate.test(input))
       return function.apply(input);
-    return next.apply(input);
+    return next.apply(input, false);
   }
 
   @Override

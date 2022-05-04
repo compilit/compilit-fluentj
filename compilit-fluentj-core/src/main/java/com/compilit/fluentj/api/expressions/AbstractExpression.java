@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 abstract class AbstractExpression<T, R> implements Expression<T, R> {
   protected final Predicate<T> predicate;
   protected final boolean isComplete;
-  protected boolean hasMatchedPredicate = false;
+
   protected Expression<T, R> next;
 
   protected AbstractExpression(Predicate<T> predicate, boolean isComplete) {

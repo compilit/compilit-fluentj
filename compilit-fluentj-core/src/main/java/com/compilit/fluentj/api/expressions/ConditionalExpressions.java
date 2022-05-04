@@ -125,7 +125,7 @@ public final class ConditionalExpressions {
     }
     if (!expression.isComplete())
       throw new IncompleteExpressionException();
-    return expression.apply(input);
+    return expression.apply(input, false);
   }
 
 }

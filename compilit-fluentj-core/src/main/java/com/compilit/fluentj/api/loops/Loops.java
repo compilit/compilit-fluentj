@@ -77,7 +77,7 @@ public final class Loops {
 
   public static <T, R> R takeEachEntryIn(Collection<T> collection, Expression<T, R> expression) {
     for (var entry : collection) {
-      var result = expression.apply(entry);
+      var result = expression.apply(entry, false);
       if (result != null)
         return result;
     }

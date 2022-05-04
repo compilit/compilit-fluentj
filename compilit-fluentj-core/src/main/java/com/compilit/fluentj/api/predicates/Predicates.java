@@ -143,7 +143,7 @@ public final class Predicates {
   }
 
   public static <T> Predicate<T> itIsAnythingElse() {
-    return it -> true;
+    return it -> false;
   }
 
   public static <T> Predicate<T> unless(Predicate<T> predicate) {

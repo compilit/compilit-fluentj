@@ -1,5 +1,6 @@
 package examples;
 
+import com.compilit.fluentj.api.expressions.SwitchBreakers;
 import org.junit.jupiter.api.Test;
 import testutil.TestEnum;
 import testutil.TestObject;
@@ -12,9 +13,13 @@ import static com.compilit.fluentj.api.arithmetic.Multiplication.multiplyingItBy
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
 import static com.compilit.fluentj.api.expressions.Expressions.is;
 import static com.compilit.fluentj.api.expressions.Expressions.isNull;
-import static com.compilit.fluentj.api.expressions.Expressions.matchesThat;
+import static com.compilit.fluentj.api.expressions.Expressions.is;
+
 import static com.compilit.fluentj.api.expressions.Expressions.otherwise;
 import static com.compilit.fluentj.api.expressions.Expressions.otherwiseReturn;
+
+import static com.compilit.fluentj.api.expressions.SwitchBreakers.*;
+import static com.compilit.fluentj.api.expressions.SwitchBreakers.andThenReturn;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.loops.Loops.takeEachEntryIn;
@@ -32,11 +37,9 @@ import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThen;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.asLongAs;
-import static com.compilit.fluentj.api.predicates.Predicates.isNotNull;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsNot;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsNotNull;
-import static com.compilit.fluentj.api.predicates.Predicates.itIsNull;
 import static com.compilit.fluentj.api.predicates.Predicates.until;
 import static org.assertj.core.api.Assertions.assertThat;
 import static testutil.TestEnum.ONE;
@@ -99,8 +102,7 @@ class FluentJApiExamples {
   }
 
   @Test
-  void switchTest() {
-    //Inclusive switch expression
+  void inclusiveSwitchExpressions() {
     var theInput = 10;
     //prints 10 1 time
     inCaseThat(theInput,
@@ -109,25 +111,46 @@ class FluentJApiExamples {
             is(1000, printIt()),
 //            matchesThat(itIsNotNull(), printIt()),
             otherwise(print("none")));
-    //prints 10 1 time
+    //prints 10 3 times
     inCaseThat(theInput,
             is(10, printIt()),
             is(10, printIt()),
             is(10, printIt()),
             otherwise(print("none")));
 
+    //defaults to none
     inCaseThat(theInput,
             is(1, printIt()),
             is(2, print("this is something else")),
             is(3, print("this is also something else")),
             otherwise(print("none")));
 
-    //with a predicate expression
+    //with a predicate expression, prints null
     inCaseThat(null,
             isNull(printIt()),
             is(10, printIt()),
             is(10, printIt()),
             otherwise(print("none")));
+  }
+
+  @Test
+  void exclusiveSwitchExpressions() {
+    var theInput = 10;
+    //prints 10 only 1 time
+    inCaseThat(theInput,
+            is(10, printIt(), andThenReturn()),
+            is(10, printIt()),
+            is(10, printIt()),
+            otherwise(print("none")));
+
+    //prints 10 only 3 times
+    inCaseThat(theInput,
+            is(10, printIt()),
+            is(10, printIt()),
+            is(10, printIt(), andThenReturn()),
+            is(10, printIt()),
+            otherwise(print("none")));
+
   }
 
   @Test

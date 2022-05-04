@@ -18,10 +18,10 @@ class SupplierExpression<T, R> extends AbstractExpression<T, R> implements Expre
   }
 
   @Override
-  public R apply(T input) {
+  public R apply(T input, boolean hasMatchedPredicate) {
     if (predicate.test(input))
       return supplier.get();
-    return next.apply(input);
+    return next.apply(input, hasMatchedPredicate);
   }
 
 }
