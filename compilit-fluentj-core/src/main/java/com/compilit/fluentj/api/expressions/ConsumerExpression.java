@@ -13,9 +13,11 @@ class ConsumerExpression<T> extends AbstractExpression<T, Void> implements Expre
 
   @Override
   public Void apply(T input) {
-    if (predicate.test(input))
+    if (predicate.test(input)) {
+      hasMatchedPredicate = true;
       consumer.accept(input);
-    if (next != null)
+    }
+    if (next != null && !hasMatchedPredicate)
       return next.apply(input);
     return null;
   }

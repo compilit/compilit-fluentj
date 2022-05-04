@@ -11,7 +11,7 @@ English. I've chosen a more functional approach for the fluent API then the more
 limited options after each word.
 
 At first I wasn't convinced. And I still am not convinced! But I just get goose bumps whenever I see this. Behold a
-simple switch statement:
+simple switch:
 
 ```java
 class Example {

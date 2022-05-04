@@ -3,7 +3,7 @@ package com.compilit.fluentj.api.operations;
 import com.compilit.fluentj.api.loops.Loop;
 import com.compilit.results.Result;
 
-import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.compilit.fluentj.api.operations.ExceptionOperations.inCaseOfAnExceptionReturnDefault;
@@ -16,11 +16,11 @@ public final class ReturningOperations {
     return () -> value;
   }
 
-  public static <T> ContinuingFunction<Loop<T>, Result<T>> thenReturnTheResult() {
+  public static <T> Function<Loop<T>, Result<T>> thenReturnTheResult() {
     return it -> Result.resultOf(it::resolveAll);
   }
 
-  public static <T> ContinuingFunction<T, Result<T>> andReturnResult() {
+  public static <T> Function<T, Result<T>> andReturnResult() {
     return it -> Result.resultOf(() -> it);
   }
 
@@ -32,11 +32,11 @@ public final class ReturningOperations {
     return () -> false;
   }
 
-  public static <T> ContinuingFunction<Supplier<T>, T> inCaseOfAnExceptionReturnNull() {
+  public static <T> Function<Supplier<T>, T> inCaseOfAnExceptionReturnNull() {
     return inCaseOfAnExceptionReturn(null);
   }
 
-  public static <T> ContinuingFunction<Supplier<T>, T> inCaseOfAnExceptionReturn(T defaultValue) {
+  public static <T> Function<Supplier<T>, T> inCaseOfAnExceptionReturn(T defaultValue) {
     return it -> inCaseOfAnExceptionReturnDefault(it, thenReturn(defaultValue));
   }
 

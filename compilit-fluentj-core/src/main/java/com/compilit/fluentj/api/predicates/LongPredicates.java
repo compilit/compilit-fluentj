@@ -10,11 +10,13 @@ import static com.compilit.fluentj.api.predicates.Predicates.unless;
 import static com.compilit.fluentj.api.predicates.Predicates.until;
 
 public final class LongPredicates {
+
+  private LongPredicates() {}
   public static Predicate<Long> itIsEqualTo(final long input) {
     return it -> it == input;
   }
 
-  public static Predicate<Long> itIsMoreThen(final long input) {
+  public static Predicate<Long> itIsGreaterThen(final long input) {
     return it -> it > input;
   }
 
@@ -22,7 +24,7 @@ public final class LongPredicates {
     return it -> it < input;
   }
 
-  public static Predicate<Long> itIsMoreThenOrEqualTo(final long input) {
+  public static Predicate<Long> itIsGreaterThenOrEqualTo(final long input) {
     return it -> it >= input;
   }
 
@@ -32,7 +34,7 @@ public final class LongPredicates {
 
   public static Predicate<Long> itIsAPrimeNumber() {
     return thePossiblePrime -> tryStartingWith(2L,
-            keep(adding(1L), until(itIsMoreThenOrEqualTo((long) Math.sqrt(thePossiblePrime)))),
+            keep(adding(1L), until(itIsGreaterThen((long) Math.sqrt(thePossiblePrime)))),
             unless(thePossiblePrime, itIsDivisibleByTheCurrentNumber()));
   }
 

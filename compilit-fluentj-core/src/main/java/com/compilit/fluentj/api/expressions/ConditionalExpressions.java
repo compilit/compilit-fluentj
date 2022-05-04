@@ -1,13 +1,6 @@
 package com.compilit.fluentj.api.expressions;
 
-import com.compilit.fluentj.api.operations.ConnectingConsumer;
-import com.compilit.fluentj.api.predicates.Predicates;
 import com.compilit.fluentj.exceptions.IncompleteExpressionException;
-
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public final class ConditionalExpressions {
 

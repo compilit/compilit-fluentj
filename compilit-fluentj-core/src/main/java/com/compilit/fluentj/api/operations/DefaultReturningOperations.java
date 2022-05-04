@@ -1,5 +1,7 @@
 package com.compilit.fluentj.api.operations;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class DefaultReturningOperations {
@@ -19,15 +21,15 @@ public final class DefaultReturningOperations {
     return () -> false;
   }
 
-  public static ConnectingRunnable otherwise(ConnectingRunnable defaultRunnable) {
+  public static Runnable otherwise(Runnable defaultRunnable) {
     return defaultRunnable;
   }
 
-  public static <T> ConnectingConsumer<T> otherwise(ConnectingConsumer<T> defaultConsumer) {
+  public static <T> Consumer<T> otherwise(Consumer<T> defaultConsumer) {
     return defaultConsumer;
   }
 
-  public static <T, R> ConnectingFunction<T, R> otherwise(ConnectingFunction<T, R> defaultFunction) {
+  public static <T, R> Function<T, R> otherwise(Function<T, R> defaultFunction) {
     return defaultFunction;
   }
 }

@@ -1,11 +1,11 @@
 package examples;
 
-import com.compilit.fluentj.api.operations.ConnectingConsumer;
 import org.junit.jupiter.api.Test;
 import testutil.TestEnum;
 import testutil.TestObject;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static com.compilit.fluentj.api.arithmetic.Addition.adding;
 import static com.compilit.fluentj.api.arithmetic.Multiplication.multiplyingItBy;
@@ -26,16 +26,17 @@ import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
 import static com.compilit.fluentj.api.operations.StringOperations.appending;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualTo;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsMoreThen;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualToOrMoreThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThanOrEqualTo;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThen;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.asLongAs;
 import static com.compilit.fluentj.api.predicates.Predicates.isNotNull;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsNot;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsNotNull;
+import static com.compilit.fluentj.api.predicates.Predicates.itIsNull;
 import static com.compilit.fluentj.api.predicates.Predicates.until;
 import static org.assertj.core.api.Assertions.assertThat;
 import static testutil.TestEnum.ONE;
@@ -60,22 +61,22 @@ class FluentJApiExamples {
   @Test
   void forLoopsTest() {
     //exclusive boundary
-    assertThat(startingWith(100, keep(multiplyingItBy(2), until(itIsMoreThen(100000))), thenReturnTheResult()).getContents()).isEqualTo(102400);
+    assertThat(startingWith(100, keep(multiplyingItBy(2), until(itIsGreaterThen(100000))), thenReturnTheResult()).getContents()).isEqualTo(102400);
 
     var testObject = new TestObject(1);
 
     //exclusive boundary
     startingWith(0, keep(adding(1), until(itIsEqualTo(10)), and(testObject::changeValue)));
     //inclusive boundary
-    startingWith(0, keep(adding(1), until(itIsMoreThen(10)), and(testObject::changeValue)));
+    startingWith(0, keep(adding(1), until(itIsGreaterThen(10)), and(testObject::changeValue)));
     assertThat(testObject.getValue()).isEqualTo(10);
     testObject = new TestObject(1);
-    startingWith(0, keep(adding(1), until(itIsMoreThen(10)), and(testObject::changeValue)));
+    startingWith(0, keep(adding(1), until(itIsGreaterThen(10)), and(testObject::changeValue)));
     assertThat(testObject.getValue()).isEqualTo(9);
     testObject = new TestObject(1);
-    startingWith(0, keep(adding(1), until(itIsMoreThen(10)), and(testObject::increment)));
+    startingWith(0, keep(adding(1), until(itIsGreaterThen(10)), and(testObject::increment)));
     assertThat(testObject.getValue()).isEqualTo(46);
-    startingWith(1, keep(multiplyingItBy(2), until(itIsEqualToOrMoreThen(100))), then(printIt()));
+    startingWith(1, keep(multiplyingItBy(2), until(itIsGreaterThanOrEqualTo(100))), then(printIt()));
   }
 
   @Test
@@ -106,9 +107,9 @@ class FluentJApiExamples {
             is(10, printIt()),
             is(100, printIt()),
             is(1000, printIt()),
-            matchesThat(isNotNull(), printIt()),
+//            matchesThat(itIsNotNull(), printIt()),
             otherwise(print("none")));
-    //prints 10 3 times
+    //prints 10 1 time
     inCaseThat(theInput,
             is(10, printIt()),
             is(10, printIt()),
@@ -124,12 +125,6 @@ class FluentJApiExamples {
     //with a predicate expression
     inCaseThat(null,
             isNull(printIt()),
-            is(10, printIt()),
-            is(10, printIt()),
-            otherwise(print("none")));
-
-    //with a predicate expression
-    var expression = inCaseThat(isNull(printIt()),
             is(10, printIt()),
             is(10, printIt()),
             otherwise(print("none")));
@@ -152,7 +147,7 @@ class FluentJApiExamples {
             otherwiseReturn("none"));
   }
 
-  private static ConnectingConsumer<TestEnum> printItOnCondition() {
+  private static Consumer<TestEnum> printItOnCondition() {
     return theInput -> inCaseThat(theInput,
             is(ONE, print("1")),
             is(TWO, printIt()),

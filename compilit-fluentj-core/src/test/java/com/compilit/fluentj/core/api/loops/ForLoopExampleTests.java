@@ -15,10 +15,10 @@ import static com.compilit.fluentj.api.arithmetic.Subtraction.subtractingItWith;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturnTheResult;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualToOrLessThen;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsMoreThen;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualToOrMoreThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThanOrEqualTo;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThen;
 import static com.compilit.fluentj.api.predicates.Predicates.until;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -27,19 +27,19 @@ class ForLoopExampleTests extends AbstractTestWithContext {
 
   private static final Supplier<Result<?>> testCase1 =
           () -> startingWith(1,
-                  keep(multiplyingItBy(10), until(itIsMoreThen(10))),
+                  keep(multiplyingItBy(10), until(itIsGreaterThen(10))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase2 =
           () -> startingWith(1,
-                  keep(multiplyingItBy(10), until(itIsMoreThen(10))),
+                  keep(multiplyingItBy(10), until(itIsGreaterThen(10))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase3 =
           () -> startingWith(10,
-                  keep(multiplyingItBy(10), until(itIsMoreThen(1000))),
+                  keep(multiplyingItBy(10), until(itIsGreaterThen(1000))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase4 =
           () -> startingWith(0,
-                  keep(adding(1), until(itIsEqualToOrMoreThen(10))),
+                  keep(adding(1), until(itIsGreaterThanOrEqualTo(10))),
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase5 =
           () -> startingWith(1000,
@@ -59,7 +59,7 @@ class ForLoopExampleTests extends AbstractTestWithContext {
                   thenReturnTheResult());
   private static final Supplier<Result<?>> testCase9 =
           () -> startingWith(0,
-                  keep(adding(1), until(itIsMoreThen(10))),
+                  keep(adding(1), until(itIsGreaterThen(10))),
                   thenReturnTheResult());
 
   @ParameterizedTest

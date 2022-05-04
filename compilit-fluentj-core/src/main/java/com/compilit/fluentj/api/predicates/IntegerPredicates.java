@@ -22,11 +22,11 @@ public final class IntegerPredicates {
     return it -> it < input;
   }
 
-  public static Predicate<Integer> itIsMoreThen(final int input) {
+  public static Predicate<Integer> itIsGreaterThen(final int input) {
     return it -> it > input;
   }
 
-  public static Predicate<Integer> itIsEqualToOrMoreThen(final int input) {
+  public static Predicate<Integer> itIsGreaterThanOrEqualTo(final int input) {
     return it -> it >= input;
   }
 
@@ -36,7 +36,7 @@ public final class IntegerPredicates {
 
   public static Predicate<Integer> itIsAPrimeNumber() {
     return thePossiblePrime -> tryStartingWith(2,
-            keep(adding(1), until(itIsEqualToOrMoreThen((int) Math.sqrt(thePossiblePrime)))),
+            keep(adding(1), until(itIsGreaterThen((int) Math.sqrt(thePossiblePrime)))),
             unless(thePossiblePrime, itIsDivisibleByTheCurrentNumber()));
   }
 

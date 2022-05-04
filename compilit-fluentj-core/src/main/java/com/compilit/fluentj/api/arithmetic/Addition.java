@@ -1,42 +1,41 @@
 package com.compilit.fluentj.api.arithmetic;
 
-import com.compilit.fluentj.api.operations.ConnectingUnaryOperator;
-
 import java.util.function.BiFunction;
+import java.util.function.UnaryOperator;
 
 public final class Addition {
   private Addition() {
   }
 
-  public static ConnectingUnaryOperator<Integer> add(final int addend) {
+  public static UnaryOperator<Integer> add(final int addend) {
     return x -> x + addend;
   }
 
-  public static ConnectingUnaryOperator<Long> add(final long addend) {
+  public static UnaryOperator<Long> add(final long addend) {
     return x -> x + addend;
   }
 
-  public static ConnectingUnaryOperator<Float> add(final float addend) {
+  public static UnaryOperator<Float> add(final float addend) {
     return x -> x + addend;
   }
 
-  public static ConnectingUnaryOperator<Double> add(final double addend) {
+  public static UnaryOperator<Double> add(final double addend) {
     return x -> x + addend;
   }
 
-  public static ConnectingUnaryOperator<Integer> adding(final int addend) {
+  public static UnaryOperator<Integer> adding(final int addend) {
     return add(addend);
   }
 
-  public static ConnectingUnaryOperator<Long> adding(final long addend) {
+  public static UnaryOperator<Long> adding(final long addend) {
     return add(addend);
   }
 
-  public static ConnectingUnaryOperator<Float> adding(final float addend) {
+  public static UnaryOperator<Float> adding(final float addend) {
     return add(addend);
   }
 
-  public static ConnectingUnaryOperator<Double> adding(final double addend) {
+  public static UnaryOperator<Double> adding(final double addend) {
     return add(addend);
   }
 
@@ -44,7 +43,7 @@ public final class Addition {
     return Integer::sum;
   }
 
-  public static ConnectingUnaryOperator<Integer> incrementingIt() {
+  public static UnaryOperator<Integer> incrementingIt() {
     return x -> {
       if (x == 0) {
         return 1;

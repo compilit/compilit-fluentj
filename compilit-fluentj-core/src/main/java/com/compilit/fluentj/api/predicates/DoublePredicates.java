@@ -22,11 +22,11 @@ public final class DoublePredicates {
     return it -> it < input;
   }
 
-  public static Predicate<Double> itIsMoreThen(final double input) {
+  public static Predicate<Double> itIsGreaterThen(final double input) {
     return it -> it > input;
   }
 
-  public static Predicate<Double> itIsMoreThenOrEqualTo(final double input) {
+  public static Predicate<Double> itIsGreaterThenOrEqualTo(final double input) {
     return it -> it >= input;
   }
 
@@ -44,7 +44,7 @@ public final class DoublePredicates {
 
   public static Predicate<Double> itIsAPrimeNumber() {
     return thePossiblePrime -> tryStartingWith(2d,
-            keep(adding(1d), until(itIsMoreThenOrEqualTo(Math.sqrt(thePossiblePrime)))),
+            keep(adding(1d), until(itIsGreaterThen(Math.sqrt(thePossiblePrime)))),
             unless(thePossiblePrime, itIsDivisibleByTheCurrentNumber()));
   }
 
