@@ -10,7 +10,7 @@ and hide them behind plain English interfaces. The result is FluentJ. English wi
 English. I've chosen a more functional approach for the fluent API then the more common OOP paradigm where you get
 limited options after each word.
 
-At first I wasn't convinced. And I still am not convinced! But I just get goose bumps whenever I see this. Behold a
+At first I wasn't convinced. And I still am not convinced! But I do like the way it looks. Behold a
 simple switch:
 
 ```java
@@ -42,6 +42,56 @@ class Example {
         System.out.println("this is also something else");
       default:
         System.out.println("none");
+    }
+
+  }
+}
+
+// and when you wish to add break statements:
+class Example {
+
+  public void example(int theInput) {
+
+    inCaseThat(theInput,
+            is(1, printIt(), andThenReturn()),
+            is(2, print("this is something else")), andThenReturn()),
+            is(3, print("this is also something else"), andThenReturn()),
+            otherwise(print("none"));
+
+  }
+
+}
+//as opposed to:
+class Example {
+
+  public void example(int theInput) {
+
+    switch (theInput) {
+      case 1:
+        System.out.println(theInput);
+        break;
+      case 2:
+        System.out.println("this is something else");
+        break;
+      case 3:
+        System.out.println("this is also something else");
+        break;
+      default:
+        System.out.println("none");
+    }
+
+  }
+}
+//or:
+class Example {
+
+  public void example(int theInput) {
+
+    switch (theInput) {
+      case 1 -> System.out.println(theInput);
+      case 2 -> System.out.println("this is something else");
+      case 3 -> System.out.println("this is also something else");
+      default -> System.out.println("none");
     }
 
   }
