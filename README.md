@@ -57,21 +57,14 @@ class Example {
 
   void fluentJPrimeNumbers() {
     //while
-    //if-statement consumer visually a part of the loop
     startingWith(1,
-            untilReachingOrGoingAbove(10000,
-                    keep(adding(1)),
+            untilReachingOrGoingAbove(10000, keep(adding(1)),
                     andInCaseThat(itIsAPrimeNumber(), printIt())));
-
-    //while
-    startingWith(1,
-            untilReachingOrGoingAbove(10000, keep(adding(1))),
-            andInCaseThat(itIsAPrimeNumber(), printIt()));
-
+    
     //doWhile
     startingWith(1,
-            keep(adding(1), untilReachingOrGoingAbove(10000)),
-            andInCaseThat(itIsAPrimeNumber(), printIt()));
+            keep(adding(1), untilReachingOrGoingAbove(10000),
+            andInCaseThat(itIsAPrimeNumber(), printIt())));
   }
 
 }

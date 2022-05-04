@@ -10,7 +10,6 @@ class ConsumerSwitchBreaker<T> implements SwitchBreaker<T, Void> {
     this.consumer = consumer;
   }
 
-
   @Override
   public Void apply(T input) {
     consumer.accept(input);

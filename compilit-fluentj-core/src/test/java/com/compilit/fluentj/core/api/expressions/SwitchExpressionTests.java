@@ -7,9 +7,12 @@ import testutil.AbstractTestWithContext;
 
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
 import static com.compilit.fluentj.api.expressions.Expressions.is;
+import static com.compilit.fluentj.api.expressions.Expressions.matchesThat;
 import static com.compilit.fluentj.api.expressions.Expressions.otherwiseReturn;
 import static com.compilit.fluentj.api.operations.ConnectingOperations.then;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
+import static com.compilit.fluentj.api.predicates.Predicates.itIs;
+import static com.compilit.fluentj.api.predicates.Predicates.itIsAnInteger;
 
 class SwitchExpressionTests extends AbstractTestWithContext {
 
@@ -65,6 +68,16 @@ class SwitchExpressionTests extends AbstractTestWithContext {
             is(10, thenReturn(notExpected)),
             is(10, thenReturn(notExpected)),
             is(1, thenReturn(expected)),
+            otherwiseReturn(notExpected));
+    Assertions.assertThat(result).isEqualTo(expected);
+  }
+
+  @Test
+  void returningPredicateSwitch_true_shouldReturnMatch() {
+    var result = inCaseThat(10,
+            matchesThat(itIs(10).and(itIsAnInteger()), thenReturn(expected)),
+            is(10, thenReturn(notExpected)),
+            is(1, thenReturn(notExpected)),
             otherwiseReturn(notExpected));
     Assertions.assertThat(result).isEqualTo(expected);
   }

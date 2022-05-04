@@ -15,8 +15,8 @@ public class Expressions {
   private Expressions() {
   }
 
-  public static <T, R> Expression<T, R> matchesThat(Predicate<T> predicate, R returnValue) {
-    return new SupplierExpression<>(predicate, () -> returnValue, true);
+  public static <T, R> Expression<T, R> matchesThat(Predicate<T> predicate, Supplier<R> returnValue) {
+    return new SupplierExpression<>(predicate, returnValue, true);
   }
 
   public static <T, R> Expression<T, Void> matchesThat(Predicate<T> predicate, Runnable runnable) {
@@ -25,6 +25,10 @@ public class Expressions {
 
   public static <T, R> Expression<T, Void> matchesThat(Predicate<T> predicate, Consumer<T> consumer) {
     return new ConsumerExpression<>(predicate, consumer, null);
+  }
+
+  public static <T, R> Expression<T, R> matchesThat(Predicate<T> predicate, Function<T, R> function) {
+    return new FunctionExpression<>(predicate, function, true);
   }
 
   public static <T, R> Expression<T, Void> matchesThat(Predicate<T> predicate, Runnable runnable, SwitchBreaker<T, Void> switchBreaker) {
