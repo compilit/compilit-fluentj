@@ -58,13 +58,15 @@ class Example {
   void fluentJPrimeNumbers() {
     //while
     startingWith(1,
-            untilReachingOrGoingAbove(10000, keep(adding(1)),
+            until(itIs(10000),
+                    keep(adding(1)),
                     andInCaseThat(itIsAPrimeNumber(), printIt())));
-    
+
     //doWhile
     startingWith(1,
-            keep(adding(1), untilReachingOrGoingAbove(10000),
-            andInCaseThat(itIsAPrimeNumber(), printIt())));
+            keep(adding(1),
+                    until(itIs(10000)),
+                    andInCaseThat(itIsAPrimeNumber(), printIt())));
   }
 
 }
