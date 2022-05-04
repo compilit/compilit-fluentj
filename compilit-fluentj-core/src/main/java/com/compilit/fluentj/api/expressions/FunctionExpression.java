@@ -12,25 +12,10 @@ class FunctionExpression<T, R> implements Expression<T, R> {
   private Expression<T, R> next;
   private boolean isComplete;
 
-  public FunctionExpression(Predicate<T> predicate, Function<T, R> function) {
-    this.predicate = predicate;
-    this.function = function;
-    this.isComplete = false;
-  }
-
   public FunctionExpression(Predicate<T> predicate, Function<T, R> function, boolean isComplete) {
     this.predicate = predicate;
     this.function = function;
     this.isComplete = isComplete;
-  }
-
-  @Override
-  public R apply(T input, boolean hasMatchedPredicate) {
-    if (!isComplete)
-      throw new IncompleteExpressionException();
-    if (predicate.test(input))
-      return function.apply(input);
-    return next.apply(input, false);
   }
 
   @Override
@@ -43,5 +28,14 @@ class FunctionExpression<T, R> implements Expression<T, R> {
     if (next.isComplete())
       this.isComplete = true;
     this.next = next;
+  }
+
+  @Override
+  public R apply(T input, boolean hasMatchedPredicate) {
+    if (!isComplete)
+      throw new IncompleteExpressionException();
+    if (predicate.test(input))
+      return function.apply(input);
+    return next.apply(input, false);
   }
 }

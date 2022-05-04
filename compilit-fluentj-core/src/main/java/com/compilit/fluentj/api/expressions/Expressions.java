@@ -16,7 +16,7 @@ public class Expressions {
   }
 
   public static <T, R> Expression<T, R> matchesThat(Predicate<T> predicate, R returnValue) {
-    return new SupplierExpression<>(predicate, () -> returnValue);
+    return new SupplierExpression<>(predicate, () -> returnValue, true);
   }
 
   public static <T, R> Expression<T, Void> matchesThat(Predicate<T> predicate, Runnable runnable) {
@@ -36,7 +36,7 @@ public class Expressions {
   }
 
   public static <T, R> Expression<T, R> isNull(Supplier<R> supplier) {
-    return new SupplierExpression<>(Predicates.isNull(), supplier);
+    return new SupplierExpression<>(Predicates.isNull(), supplier, false);
   }
 
   public static <T> Expression<T, Void> isNull(Runnable runnable) {
@@ -48,11 +48,11 @@ public class Expressions {
   }
 
   public static <T, R> Expression<T, R> isNull(Function<T, R> function) {
-    return new FunctionExpression<>(Predicates.isNull(), function);
+    return new FunctionExpression<>(Predicates.isNull(), function, false);
   }
 
   public static <T, R> Expression<T, R> isNotNull(Supplier<R> supplier) {
-    return new SupplierExpression<>(Predicates.isNotNull(), supplier);
+    return new SupplierExpression<>(Predicates.isNotNull(), supplier, true);
   }
 
   public static <T, R> Expression<T, Void> isNotNull(Runnable runnable) {
@@ -64,11 +64,11 @@ public class Expressions {
   }
 
   public static <T, R> Expression<T, R> isNotNull(Function<T, R> function) {
-    return new FunctionExpression<>(Predicates.isNotNull(), function);
+    return new FunctionExpression<>(Predicates.isNotNull(), function, false);
   }
 
   public static <T, R> Expression<T, R> compliesWith(Rule<T> rule, Supplier<R> returnValue) {
-    return new SupplierExpression<>(rule, returnValue);
+    return new SupplierExpression<>(rule, returnValue, false);
   }
 
   public static <T> Expression<T, Void> compliesWith(Rule<T> rule, Runnable runnable) {
@@ -80,7 +80,7 @@ public class Expressions {
   }
 
   public static <T, R> Expression<T, R> compliesWith(Rule<T> rule, Function<T, R> function) {
-    return new FunctionExpression<>(rule, function);
+    return new FunctionExpression<>(rule, function, false);
   }
 
   public static <T> Expression<T, Void> compliesWith(Rule<T> rule, Runnable runnable, SwitchBreaker<T, Void> switchBreaker) {
@@ -92,7 +92,7 @@ public class Expressions {
   }
 
   public static <T, R> Expression<T, R> is(T value, Supplier<R> returnValue) {
-    return new SupplierExpression<>(Predicates.is(value), returnValue);
+    return new SupplierExpression<>(Predicates.is(value), returnValue, false);
   }
 
   public static <T> Expression<T, Void> is(T value, Runnable runnable) {
@@ -112,8 +112,9 @@ public class Expressions {
   }
 
   public static <T, R> Expression<T, R> is(T value, Function<T, R> function) {
-    return new FunctionExpression<>(Predicates.is(value), function, true);
+    return new FunctionExpression<>(Predicates.is(value), function, false);
   }
+
   public static <T, R> Expression<T, R> otherwiseReturn(R defaultValue) {
     return new SupplierExpression<>(itIsAnythingElse(), () -> defaultValue, true);
   }

@@ -6,13 +6,12 @@ import testutil.AbstractClockingTest;
 import static com.compilit.fluentj.api.arithmetic.Addition.adding;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.LoopOperations.until;
-import static com.compilit.fluentj.api.predicates.Predicates.until;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
 import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsAPrimeNumber;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThen;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
+import static com.compilit.fluentj.api.predicates.Predicates.until;
 
 class FluentJPrimeNumbersExampleTest extends AbstractClockingTest {
 

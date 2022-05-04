@@ -11,7 +11,9 @@ import static com.compilit.fluentj.api.predicates.Predicates.until;
 
 public final class LongPredicates {
 
-  private LongPredicates() {}
+  private LongPredicates() {
+  }
+
   public static Predicate<Long> itIsEqualTo(final long input) {
     return it -> it == input;
   }

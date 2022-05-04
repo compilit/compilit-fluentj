@@ -13,11 +13,13 @@ public final class CastingOperations<T> {
   public static <T, R> CastingFunction<T, R> to(Class<R> clazz) {
     return clazz::cast;
   }
+
   public static <T, R> CastingFunction<T, R> toA(Class<R> clazz) {
     return to(clazz);
   }
-    public static <T, R> CastingFunction<T, R> toAn(Class<R> clazz) {
-      return to(clazz);
+
+  public static <T, R> CastingFunction<T, R> toAn(Class<R> clazz) {
+    return to(clazz);
   }
 
   public static <T, R> CastingFunction<T, R> castItTo(Class<R> clazz, Supplier<R> defaultSupplier, Consumer<Throwable> throwableConsumer) {

@@ -1,6 +1,5 @@
 package examples;
 
-import com.compilit.fluentj.api.expressions.SwitchBreakers;
 import org.junit.jupiter.api.Test;
 import testutil.TestEnum;
 import testutil.TestObject;
@@ -13,12 +12,8 @@ import static com.compilit.fluentj.api.arithmetic.Multiplication.multiplyingItBy
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
 import static com.compilit.fluentj.api.expressions.Expressions.is;
 import static com.compilit.fluentj.api.expressions.Expressions.isNull;
-import static com.compilit.fluentj.api.expressions.Expressions.is;
-
 import static com.compilit.fluentj.api.expressions.Expressions.otherwise;
 import static com.compilit.fluentj.api.expressions.Expressions.otherwiseReturn;
-
-import static com.compilit.fluentj.api.expressions.SwitchBreakers.*;
 import static com.compilit.fluentj.api.expressions.SwitchBreakers.andThenReturn;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
 import static com.compilit.fluentj.api.loops.Loops.startingWith;
@@ -33,8 +28,8 @@ import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn
 import static com.compilit.fluentj.api.operations.StringOperations.appending;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualTo;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThanOrEqualTo;
-import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThen;
+import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
 import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.asLongAs;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;

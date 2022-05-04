@@ -1,7 +1,6 @@
 package com.compilit.fluentj.api.expressions;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 class ConsumerSwitchBreaker<T> implements SwitchBreaker<T, Void> {
 
@@ -14,8 +13,8 @@ class ConsumerSwitchBreaker<T> implements SwitchBreaker<T, Void> {
 
   @Override
   public Void apply(T input) {
-     consumer.accept(input);
-     return null;
+    consumer.accept(input);
+    return null;
   }
 
 }

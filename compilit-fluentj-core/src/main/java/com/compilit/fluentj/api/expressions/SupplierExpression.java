@@ -7,11 +7,6 @@ class SupplierExpression<T, R> extends AbstractExpression<T, R> implements Expre
 
   private final Supplier<R> supplier;
 
-  public SupplierExpression(Predicate<T> predicate, Supplier<R> supplier) {
-    super(predicate, false);
-    this.supplier = supplier;
-  }
-
   public SupplierExpression(Predicate<T> predicate, Supplier<R> supplier, boolean isComplete) {
     super(predicate, isComplete);
     this.supplier = supplier;
