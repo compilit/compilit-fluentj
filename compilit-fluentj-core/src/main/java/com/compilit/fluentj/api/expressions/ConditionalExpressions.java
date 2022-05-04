@@ -2,6 +2,8 @@ package com.compilit.fluentj.api.expressions;
 
 import com.compilit.fluentj.exceptions.IncompleteExpressionException;
 
+import java.util.function.Consumer;
+
 public final class ConditionalExpressions {
 
   private ConditionalExpressions() {
@@ -128,4 +130,20 @@ public final class ConditionalExpressions {
     return expression.apply(input, false);
   }
 
+  /**
+   * A dynamic switch-expression. It takes in a set of predicate/operation combinations in the form of an "AppendingStatement".
+   * It should be noted that a FluentJ switch expression takes the English language quite literally.
+   * This function is really flexible and as a result, it will not tell you if you've forgotten to state a default returning action at compile time.
+   * It will, however, throw an "IncompleteStatementException" at runtime if the statement is incomplete to still catch bugs like this as early as possible.
+   * To be clear: an incomplete statement would be something like this, which would cause a compile-time error
+   *
+   * @param input                the value that goes into the switch-expression.
+   * @param expression           the initial expression, take a look at the "Expressions" to get an idea of the possibilities.
+   * @param <R>                  the return type of the switch expression.
+   * @return the result of the expression.
+   */
+  public static <T> void inCaseThat(final boolean input, final Runnable runnable) {
+    if (input)
+      runnable.run();
+  }
 }

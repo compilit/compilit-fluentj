@@ -52,4 +52,10 @@ class IfElseExpressionTests extends AbstractTestWithContext {
     Assertions.assertThat(result).isEqualTo(expected);
   }
 
+  @Test
+  void nonReturningBooleanIfStatement_true_shouldInteract() {
+    var itIsTrue = true;
+    inCaseThat(itIsTrue, then(super::interact));
+    Assertions.assertThat(hasBeenInteractedWith()).isTrue();
+  }
 }
