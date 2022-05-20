@@ -5,12 +5,14 @@ import java.util.function.Predicate;
 abstract class AbstractExpression<T, R> implements Expression<T, R> {
   protected final Predicate<T> predicate;
   protected final boolean isComplete;
+  protected final boolean isDefault;
 
   protected Expression<T, R> next;
 
-  protected AbstractExpression(Predicate<T> predicate, boolean isComplete) {
+  protected AbstractExpression(Predicate<T> predicate, boolean isComplete, boolean isDefault) {
     this.predicate = predicate;
     this.isComplete = isComplete;
+    this.isDefault = isDefault;
   }
 
   @Override
@@ -23,6 +25,14 @@ abstract class AbstractExpression<T, R> implements Expression<T, R> {
     if (this.next == null)
       this.next = next;
     else this.next.append(next);
+  }
+
+  protected boolean isFinalAndComplying(T input) {
+    return !isDefault && next == null && predicate.test(input);
+  }
+
+  protected boolean isDefaultNonComplying(T input, boolean hasMatchedPredicate) {
+    return isDefault && (!predicate.test(input) && !hasMatchedPredicate);
   }
 
 }

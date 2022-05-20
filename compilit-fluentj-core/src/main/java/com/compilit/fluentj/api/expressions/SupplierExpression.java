@@ -7,15 +7,18 @@ class SupplierExpression<T, R> extends AbstractExpression<T, R> implements Expre
 
   private final Supplier<R> supplier;
 
-  public SupplierExpression(Predicate<T> predicate, Supplier<R> supplier, boolean isComplete) {
-    super(predicate, isComplete);
+  public SupplierExpression(Predicate<T> predicate, Supplier<R> supplier, boolean isComplete, boolean isDefault) {
+    super(predicate, isComplete, isDefault);
     this.supplier = supplier;
   }
 
   @Override
   public R apply(T input, boolean hasMatchedPredicate) {
-    if (predicate.test(input))
+    if (isDefaultNonComplying(input, hasMatchedPredicate)) {
       return supplier.get();
+    } else if (predicate.test(input)) {
+      return supplier.get();
+    }
     return next.apply(input, hasMatchedPredicate);
   }
 

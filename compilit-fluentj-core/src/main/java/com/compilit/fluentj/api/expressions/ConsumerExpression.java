@@ -7,15 +7,19 @@ class ConsumerExpression<T> extends AbstractExpression<T, Void> implements Expre
   private final Consumer<T> consumer;
   private final SwitchBreaker<T, Void> switchBreaker;
 
-  public ConsumerExpression(Predicate<T> predicate, Consumer<T> consumer, SwitchBreaker<T, Void> switchBreaker) {
-    super(predicate, true);
+  public ConsumerExpression(Predicate<T> predicate, Consumer<T> consumer, SwitchBreaker<T, Void> switchBreaker, boolean isDefault) {
+    super(predicate, true, isDefault);
     this.consumer = consumer;
     this.switchBreaker = switchBreaker;
   }
 
   @Override
   public Void apply(T input, boolean hasMatchedPredicate) {
-    if (next == null && !hasMatchedPredicate) {
+    if (isDefaultNonComplying(input, hasMatchedPredicate)) {
+      consumer.accept(input);
+      return null;
+    }
+    if (isFinalAndComplying(input)) {
       consumer.accept(input);
       return null;
     }

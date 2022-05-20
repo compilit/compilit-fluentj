@@ -1,5 +1,6 @@
 package com.compilit.fluentj.core.api.expressions;
 
+import com.compilit.fluentj.api.expressions.Expressions;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import testutil.AbstractTestWithContext;
@@ -52,10 +53,32 @@ class IfElseExpressionTests extends AbstractTestWithContext {
     Assertions.assertThat(result).isEqualTo(expected);
   }
 
-  @Test
-  void nonReturningBooleanIfStatement_true_shouldInteract() {
-    var itIsTrue = true;
-    inCaseThat(itIsTrue, then(super::interact));
-    Assertions.assertThat(hasBeenInteractedWith()).isTrue();
-  }
+//  @Test
+//  void nonReturningBooleanIfStatement_true_shouldInteract() {
+//    var itIsTrue = true;
+//    inCaseThat(itIsTrue, then(super::interact));
+//    Assertions.assertThat(hasBeenInteractedWith()).isTrue();
+//  }
+//
+//  @Test
+//  void nonReturningBooleanIfStatement_false_shouldNotInteract() {
+//    var itIsTrue = false;
+//    inCaseThat(itIsTrue, then(super::interact));
+//    Assertions.assertThat(hasBeenInteractedWith()).isFalse();
+//  }
+//
+//  @Test
+//  void returningBooleanIfStatement_true_shouldReturnSupplierValue() {
+//    var itIsTrue = true;
+//    var actual = inCaseThat(itIsTrue, thenReturn(expected), otherwiseReturn(notExpected));
+//    Assertions.assertThat(actual).isEqualTo(expected);
+//  }
+//
+//  @Test
+//  void returningBooleanIfStatement_false_shouldReturnDefaultSupplierValue() {
+//    var itIsTrue = false;
+//    var actual = inCaseThat(itIsTrue, thenReturn(notExpected), otherwiseReturn(expected));
+//    Assertions.assertThat(actual).isEqualTo(expected);
+//  }
+
 }
