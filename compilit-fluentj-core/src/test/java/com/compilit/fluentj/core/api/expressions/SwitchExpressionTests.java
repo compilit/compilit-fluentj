@@ -53,7 +53,7 @@ class SwitchExpressionTests extends AbstractTestWithContext {
   }
 
   @Test
-  void returningSwitch_true_shouldReturnFirstMatch() {
+  void returningSwitch_multipleMatches_shouldReturnFirstMatch() {
     var result = inCaseThat(1,
             is(1, thenReturn(expected)),
             is(1, thenReturn(notExpected)),
@@ -65,7 +65,7 @@ class SwitchExpressionTests extends AbstractTestWithContext {
   @Test
   void returningSwitch_true_shouldReturnMatch() {
     var result = inCaseThat(1,
-            is(10, thenReturn(notExpected)),
+            is(100, thenReturn(notExpected)),
             is(10, thenReturn(notExpected)),
             is(1, thenReturn(expected)),
             otherwiseReturn(notExpected));

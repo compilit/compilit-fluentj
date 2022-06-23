@@ -3,6 +3,9 @@ package examples;
 import org.junit.jupiter.api.Test;
 import testutil.AbstractClockingTest;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 class RegularPrimeNumbersExampleTest extends AbstractClockingTest {
 
   @Test
@@ -12,6 +15,7 @@ class RegularPrimeNumbersExampleTest extends AbstractClockingTest {
         System.out.println(possiblePrime);
       }
     }
+
   }
 
   private boolean isAPrimeNumber(int possiblePrime) {

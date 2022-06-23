@@ -13,8 +13,8 @@ public final class ConnectingOperations {
     return expression;
   }
 
-  public static Runnable and(Runnable runnable) {
-    return runnable;
+  public static <T> Consumer<T> and(Runnable runnable) {
+    return x -> runnable.run();
   }
 
   public static <T> Consumer<T> and(Consumer<T> consumer) {

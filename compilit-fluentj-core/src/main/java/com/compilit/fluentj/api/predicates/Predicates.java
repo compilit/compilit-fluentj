@@ -47,14 +47,6 @@ public final class Predicates {
     return original;
   }
 
-  public static <T> Predicate<T> or(final Predicate<T> predicate) {
-    return predicate;
-  }
-
-  public static <T> Predicate<T> and(final Predicate<T> predicate) {
-    return predicate;
-  }
-
   public static <T> Predicate<T> itIs(final T possibleEqual) {
     return it -> Objects.equals(it, possibleEqual);
   }
