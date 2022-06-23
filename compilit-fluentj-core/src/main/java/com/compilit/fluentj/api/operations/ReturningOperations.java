@@ -16,16 +16,8 @@ public final class ReturningOperations {
     return () -> value;
   }
 
-//  public static <T> Supplier<T> otherwiseReturn(T defaultValue) {
-//    return () -> defaultValue;
-//  }
-
   public static <T> Function<Loop<T>, Result<T>> thenReturnTheResult() {
     return it -> Result.resultOf(it::resolveAll);
-  }
-
-  public static <T> Function<T, Result<T>> andReturnResult() {
-    return it -> Result.resultOf(() -> it);
   }
 
   public static Supplier<Boolean> thenItIsTrue() {

@@ -4,6 +4,7 @@ import com.compilit.fluentj.api.expressions.Expression;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class ConnectingOperations {
   private ConnectingOperations() {
@@ -23,6 +24,9 @@ public final class ConnectingOperations {
 
   public static <T, R> Function<T, R> and(Function<T, R> function) {
     return function;
+  }
+  public static <R> Supplier<R> and(Supplier<R> supplier) {
+    return supplier;
   }
 
   public static Runnable then(Runnable runnable) {

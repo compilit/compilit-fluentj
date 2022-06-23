@@ -85,24 +85,24 @@ public final class Predicates {
   }
 
   public static <T> Predicate<T> until(final Predicate<T> predicate) {
-    return predicate.negate();
+    return predicate.negate(); //todo: check negation
   }
 
-  public static <T> Consumer<T> andInCaseThat(final Predicate<T> predicate, Runnable runnable) {
+  public static <T> Consumer<T> inCaseThat(final Predicate<T> predicate, Runnable runnable) {
     return it -> {
       if (predicate.test(it))
         runnable.run();
     };
   }
 
-  public static <T> Consumer<T> andInCaseThat(final Predicate<T> predicate, Consumer<T> consumer) {
+  public static <T> Consumer<T> inCaseThat(final Predicate<T> predicate, Consumer<T> consumer) {
     return it -> {
       if (predicate.test(it))
         consumer.accept(it);
     };
   }
 
-  public static <T, R> Function<T, T> andInCaseThat(final Predicate<T> predicate, Supplier<T> supplier, Supplier<T> defaultSupplier) {
+  public static <T, R> Function<T, T> inCaseThat(final Predicate<T> predicate, Supplier<T> supplier, Supplier<T> defaultSupplier) {
     return it -> {
       if (predicate.test(it))
         return supplier.get();

@@ -30,7 +30,7 @@ import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsEqualTo;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThanOrEqualTo;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsGreaterThen;
 import static com.compilit.fluentj.api.predicates.IntegerPredicates.itIsLessThen;
-import static com.compilit.fluentj.api.predicates.Predicates.andInCaseThat;
+import static com.compilit.fluentj.api.predicates.Predicates.inCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.asLongAs;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsNot;
@@ -42,7 +42,7 @@ import static testutil.TestEnum.THREE;
 import static testutil.TestEnum.TWO;
 import static testutil.TestEnum.theCollection;
 
-class FluentJApiExamples {
+class FluentJApiExampleTest {
 
   //this is just a playground for the author, will be replaced by actual readable examples in the future
   @Test
@@ -53,7 +53,7 @@ class FluentJApiExamples {
             keep(adding(1), asLongAs(itIsLessThen(10))),
             thenReturnTheResult()).getContents()).isEqualTo(10);
     startingWith("a",
-            keep(appending("a"), asLongAs(itIsNot("aaaaaaaaaa")), andInCaseThat(itIs("aaa"), printIt())));
+            keep(appending("a"), asLongAs(itIsNot("aaaaaaaaaa")), inCaseThat(itIs("aaa"), printIt())));
   }
 
   @Test
@@ -153,15 +153,15 @@ class FluentJApiExamples {
     var theList = List.of("test1", "test2", "test3");
     takeEachEntryIn(theCollection(), and(printItOnCondition()));
     takeEachEntryIn(theCollection(), and(printIt()));
-    takeEachEntryIn(List.of("test1", "test2", "test3"), andInCaseThat(itIsNotNull(), printIt()));
-    takeEachEntryIn(theList, andInCaseThat(itIsNotNull(), printIt()));
+    takeEachEntryIn(List.of("test1", "test2", "test3"), and(inCaseThat(itIsNotNull(), printIt())));
+    takeEachEntryIn(theList, and(inCaseThat(itIsNotNull(), printIt())));
     takeEachEntryIn(theList, and(debugLogIt()));
     takeEachEntryIn(theCollection(), printIt());
 
     var expression = inCaseThat(
             isNull(thenReturn("null")),
-            is("10", thenReturn("10")),
-            is("11", thenReturn("11")),
+            is("10", and(thenReturn("10"))),
+            is("11", and(thenReturn("11"))),
             otherwiseReturn("none"));
   }
 
