@@ -1,8 +1,7 @@
 package examples;
 
-import com.compilit.fluentj.api.predicates.Predicates;
+import com.compilit.testtools.AbstractTestTimer;
 import org.junit.jupiter.api.Test;
-import testutil.AbstractClockingTest;
 
 import static com.compilit.fluentj.api.arithmetic.Addition.adding;
 import static com.compilit.fluentj.api.loops.LoopOperations.keep;
@@ -16,7 +15,7 @@ import static com.compilit.fluentj.api.predicates.Predicates.inCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
 import static com.compilit.fluentj.api.predicates.Predicates.until;
 
-class FluentJPrimeNumbersExampleTest extends AbstractClockingTest {
+class FluentJPrimeNumbersExampleTest extends AbstractTestTimer {
 
   @Test
   void fluentJPrimeNumbers() {
@@ -25,13 +24,13 @@ class FluentJPrimeNumbersExampleTest extends AbstractClockingTest {
             until(itIs(10000),
                     keep(adding(1)),
                     and(print("yay")),
-                    Predicates.inCaseThat(itIsAPrimeNumber(), printIt())));
+                    inCaseThat(itIsAPrimeNumber(), printIt())));
 
     //doWhile
     startingWith(1,
             keep(adding(1),
                     until(itIs(10000)),
-                    Predicates.inCaseThat(itIsAPrimeNumber(), printIt())));
+                    inCaseThat(itIsAPrimeNumber(), printIt())));
 
   }
 

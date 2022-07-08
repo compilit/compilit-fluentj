@@ -1,8 +1,7 @@
 package examples;
 
-import com.compilit.fluentj.api.predicates.Predicates;
+import com.compilit.testtools.AbstractTestTimer;
 import org.junit.jupiter.api.Test;
-import testutil.AbstractClockingTest;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import static com.compilit.fluentj.api.operations.LoggerOperations.printIt;
 import static com.compilit.fluentj.api.predicates.Predicates.inCaseThat;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
 
-class FindNumberInSortedListExampleTest extends AbstractClockingTest {
+class FindNumberInSortedListExampleTest extends AbstractTestTimer {
 
   @Test
   void internal() {

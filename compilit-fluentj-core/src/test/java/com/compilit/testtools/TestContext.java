@@ -1,16 +1,13 @@
-package testutil;
+package com.compilit.testtools;
 
 final class TestContext {
 
   private boolean isInteractedWith;
-  private int counter = 0;
-
-  TestContext() {
-  }
+  private int interactions = 0;
 
   public synchronized void interact() {
     isInteractedWith = true;
-    counter++;
+    interactions++;
   }
 
   public synchronized void reset() {
@@ -21,7 +18,7 @@ final class TestContext {
     return isInteractedWith;
   }
 
-  public int interactionCount() {
-    return counter;
+  public int getInteractions() {
+    return interactions;
   }
 }

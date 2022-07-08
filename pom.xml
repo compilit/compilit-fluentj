@@ -29,6 +29,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <artifactId>mockito-core</artifactId>
             <groupId>org.mockito</groupId>

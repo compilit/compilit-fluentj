@@ -1,31 +1,31 @@
 package com.compilit.fluentj.core.api.expressions;
 
 import com.compilit.fluentj.exceptions.IncompleteExpressionException;
+import com.compilit.testtools.AbstractTestContext;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import testutil.AbstractTestWithContext;
 
 import static com.compilit.fluentj.api.expressions.ConditionalExpressions.inCaseThat;
-import static com.compilit.fluentj.api.expressions.Expressions.is;
-import static com.compilit.fluentj.api.expressions.Expressions.matchesThat;
-import static com.compilit.fluentj.api.expressions.Expressions.otherwiseReturn;
+import static com.compilit.fluentj.api.expressions.Expressions.*;
 import static com.compilit.fluentj.api.operations.ConnectingOperations.then;
 import static com.compilit.fluentj.api.operations.ReturningOperations.thenReturn;
 import static com.compilit.fluentj.api.predicates.Predicates.itIs;
 import static com.compilit.fluentj.api.predicates.Predicates.itIsAnInteger;
+import static com.compilit.testtools.TestValues.DEFAULT_STRING_VALUE;
+import static com.compilit.testtools.TestValues.STRING_VALUE;
 
-class SwitchExpressionTests extends AbstractTestWithContext {
+class SwitchExpressionTests extends AbstractTestContext {
 
   @Test
   void nonReturningSwitch_singleMatch_shouldInteract() {
     inCaseThat(1, is(1, then(super::interact)));
-    Assertions.assertThat(super.hasBeenInteractedWith()).isTrue();
+    assertInteraction();
   }
 
   @Test
   void nonReturningSwitch_noMatch_shouldNotInteract() {
     inCaseThat(1, is(10, then(super::interact)));
-    Assertions.assertThat(super.hasBeenInteractedWith()).isFalse();
+    assertNoInteraction();
   }
 
   @Test
@@ -34,7 +34,7 @@ class SwitchExpressionTests extends AbstractTestWithContext {
             is(1, then(super::interact)),
             is(1, then(super::interact)),
             is(1, then(super::interact)));
-    Assertions.assertThat(super.hasBeenInteractedWith(3)).isTrue();
+    assertInteraction(3);
   }
 
   @Test
@@ -43,7 +43,7 @@ class SwitchExpressionTests extends AbstractTestWithContext {
             is(1, then(super::interact)),
             is(10, then(super::interact)),
             is(100, then(super::interact)));
-    Assertions.assertThat(super.hasBeenInteractedWith(1)).isTrue();
+    assertInteraction(1);
   }
 
   @Test
@@ -55,31 +55,31 @@ class SwitchExpressionTests extends AbstractTestWithContext {
   @Test
   void returningSwitch_multipleMatches_shouldReturnFirstMatch() {
     var result = inCaseThat(1,
-            is(1, thenReturn(expected)),
-            is(1, thenReturn(notExpected)),
-            is(1, thenReturn(notExpected)),
-            otherwiseReturn(notExpected));
-    Assertions.assertThat(result).isEqualTo(expected);
+            is(1, thenReturn(STRING_VALUE)),
+            is(1, thenReturn(DEFAULT_STRING_VALUE)),
+            is(1, thenReturn(DEFAULT_STRING_VALUE)),
+            otherwiseReturn(DEFAULT_STRING_VALUE));
+    Assertions.assertThat(result).isEqualTo(STRING_VALUE);
   }
 
   @Test
   void returningSwitch_true_shouldReturnMatch() {
     var result = inCaseThat(1,
-            is(100, thenReturn(notExpected)),
-            is(10, thenReturn(notExpected)),
-            is(1, thenReturn(expected)),
-            otherwiseReturn(notExpected));
-    Assertions.assertThat(result).isEqualTo(expected);
+            is(100, thenReturn(DEFAULT_STRING_VALUE)),
+            is(10, thenReturn(DEFAULT_STRING_VALUE)),
+            is(1, thenReturn(STRING_VALUE)),
+            otherwiseReturn(DEFAULT_STRING_VALUE));
+    Assertions.assertThat(result).isEqualTo(STRING_VALUE);
   }
 
   @Test
   void returningPredicateSwitch_true_shouldReturnMatch() {
     var result = inCaseThat(10,
-            matchesThat(itIs(10).and(itIsAnInteger()), thenReturn(expected)),
-            is(10, thenReturn(notExpected)),
-            is(1, thenReturn(notExpected)),
-            otherwiseReturn(notExpected));
-    Assertions.assertThat(result).isEqualTo(expected);
+            matchesThat(itIs(10).and(itIsAnInteger()), thenReturn(STRING_VALUE)),
+            is(10, thenReturn(DEFAULT_STRING_VALUE)),
+            is(1, thenReturn(DEFAULT_STRING_VALUE)),
+            otherwiseReturn(DEFAULT_STRING_VALUE));
+    Assertions.assertThat(result).isEqualTo(STRING_VALUE);
   }
 
 }

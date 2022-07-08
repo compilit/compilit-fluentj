@@ -22,7 +22,7 @@ public final class IntegerPredicates {
     return it -> it < input;
   }
 
-  public static Predicate<Integer> itIsGreaterThen(final int input) {
+  public static Predicate<Integer> itIsGreaterThan(final int input) {
     return it -> it > input;
   }
 
@@ -36,7 +36,7 @@ public final class IntegerPredicates {
 
   public static Predicate<Integer> itIsAPrimeNumber() {
     return thePossiblePrime -> tryStartingWith(2,
-            keep(adding(1), until(itIsGreaterThen((int) Math.sqrt(thePossiblePrime)))),
+            keep(adding(1), until(itIsGreaterThan((int) Math.sqrt(thePossiblePrime)))),
             unless(thePossiblePrime, itIsDivisibleByTheCurrentNumber()));
   }
 

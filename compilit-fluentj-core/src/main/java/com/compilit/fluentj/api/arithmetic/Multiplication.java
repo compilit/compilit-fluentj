@@ -1,5 +1,6 @@
 package com.compilit.fluentj.api.arithmetic;
 
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 public final class Multiplication {
@@ -25,7 +26,6 @@ public final class Multiplication {
   public static UnaryOperator<Integer> multiplyingItBy(final int multiplier) {
     return multiplyItBy(multiplier);
   }
-
   public static UnaryOperator<Long> multiplyingItBy(final long multiplier) {
     return multiplyItBy(multiplier);
   }

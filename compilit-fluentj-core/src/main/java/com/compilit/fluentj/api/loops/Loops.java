@@ -4,6 +4,7 @@ import com.compilit.fluentj.api.expressions.Expression;
 import com.compilit.results.Result;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -14,6 +15,7 @@ public final class Loops {
 
   public static <T> void startingWith(T input, Loop<T> loop, Consumer<T> consumer) {
     loop.setInput(input);
+    loop.addConsumers(Collections.singletonList(consumer));
     consumer.accept(loop.resolveAll());
   }
 
@@ -37,19 +39,6 @@ public final class Loops {
   public static <T> Result<T> startingWithAn(T input, Loop<T> loop, Function<Loop<T>, Result<T>> function) {
     return startingWith(input, loop, function);
   }
-
-//  public static <T> void startingWith(T input, Loop<T> loop, Consumer<T> consumer) {
-//    consumer.accept(input);
-//  }
-//
-//  public static <T> void startingWithA(T input, Loop<T> loop, Consumer<T> consumer) {
-//    startingWith(input, loop, consumer);
-//  }
-//
-//  public static <T> void startingWithAn(T input, Loop<T> loop, Consumer<T> consumer) {
-//    startingWith(input, loop, consumer);
-//  }
-
 
   public static <T> T startingWith(T input, Loop<T> loop) {
     loop.setInput(input);

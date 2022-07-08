@@ -1,8 +1,9 @@
 package examples;
 
+import com.compilit.testtools.AbstractTestTimer;
 import org.junit.jupiter.api.Test;
-import testutil.AbstractClockingTest;
-class RegularPrimeNumbersExampleTest extends AbstractClockingTest {
+
+class RegularPrimeNumbersExampleTest extends AbstractTestTimer {
 
   @Test
   void regularJavaPrimeNumbers() {
